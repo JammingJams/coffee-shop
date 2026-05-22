@@ -23,15 +23,18 @@ public class Coffee extends Product {
         CAPPUCCINO, LATTE, ESPRESSO, AMERICANO, MOCHA
     }
 
-    public enum Sweeteners {
-        SUGAR("Sugar", 0), SYRUP("Syrup",  0), HONEY("Honey",  0), STEVIA("Stevia",  0);
+    public enum Sweeteners  implements AddRemoveExtras{
+        SUGAR("Sugar", 0), SYRUP("Syrup",  0),
+        HONEY("Honey",  0), STEVIA("Stevia",  0);
 
         private final String label;
+        private double[] largeMediumSmallPrice = {0.5, 1, 1.25};
         private int amountOfAddIn;
 
         Sweeteners(String label, int amountOfSweets) {
             this.label = label;
             this.amountOfAddIn = amountOfSweets;
+            this.largeMediumSmallPrice = largeMediumSmallPrice;
         }
 
         @Override
@@ -47,78 +50,8 @@ public class Coffee extends Product {
             return amountOfAddIn;
         }
 
-        public void setAmountOfSweets(int amountOfSweets) {
-            this.amountOfAddIn = amountOfSweets;
-        }
-
-        public void addSweet(String servingSize, Product coffee) {
-            switch (servingSize) {
-                case "Large" -> {
-                    amountOfAddIn += 1;
-                    coffee.setPrice(coffee.getPrice() + 1.25);
-                }
-                case "Medium" -> {
-                    amountOfAddIn += 1;
-                    coffee.setPrice(coffee.getPrice() + 1);
-                }
-                case "Small" -> {
-                    amountOfAddIn += 1;
-                    coffee.setPrice(coffee.getPrice() + 0.5);
-                }
-
-            }
-
-        }
-
-        public void removeSweet(String servingSize, Product coffee) {
-            if (getAmountOfSweets() <= 0) {
-                System.out.println("INVALID LENGTH can't remove 0");
-                return;
-            }
-
-            switch (servingSize) {
-                case "Large" -> {
-                    amountOfAddIn -= 1;
-                    coffee.setPrice(coffee.getPrice() - 1.25);
-                }
-                case "Medium" -> {
-                    amountOfAddIn -= 1;
-                    coffee.setPrice(coffee.getPrice() - 1);
-                }
-                case "Small" -> {
-                    amountOfAddIn -= 1;
-                    coffee.setPrice(coffee.getPrice() - 0.5);
-                }
-
-            }
-
-        }
-    }
-
-    public enum Creamers implements AddRemoveExtras {
-        MILK("Milk", 0), BUTTER("Butter", 0),
-        ALMONDMILK("Almond Milk", 0), COCONUTOIL("Coconut Oil", 0),
-        OATMILK("Oat Milk", 0);
-
-        private final String label;
-        private int amountOfAddIn;
-
-        Creamers(String label, int amountOfSweets) {
-            this.label = label;
-            this.amountOfAddIn = amountOfSweets;
-        }
-
-        @Override
-        public String toString() {
-            return label;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-
-        public int getAmountOfSweets() {
-            return amountOfAddIn;
+        public double[] getLargeMediumSmallPrice() {
+            return largeMediumSmallPrice;
         }
 
         public void setAmountOfSweets(int amountOfSweets) {
@@ -127,22 +60,8 @@ public class Coffee extends Product {
 
         @Override
         public void add(String servingSize, Product coffee) {
-            switch (servingSize) {
-                case "Large" -> {
-                    amountOfAddIn += 1;
-                    coffee.setPrice(coffee.getPrice() + 1.25);
-                }
-                case "Medium" -> {
-                    amountOfAddIn += 1;
-                    coffee.setPrice(coffee.getPrice() + 1);
-                }
-                case "Small" -> {
-                    amountOfAddIn += 1;
-                    coffee.setPrice(coffee.getPrice() + 0.5);
-                }
-
-            }
-
+            amountOfAddIn++;
+            coffee.setPrice(coffee.getPrice() + getPriceForSize(servingSize, getLargeMediumSmallPrice()));
         }
 
         @Override
@@ -151,23 +70,221 @@ public class Coffee extends Product {
                 System.out.println("INVALID LENGTH can't remove 0");
                 return;
             }
-
-            switch (servingSize) {
-                case "Large" -> {
-                    amountOfAddIn -= 1;
-                    coffee.setPrice(coffee.getPrice() - 1.25);
-                }
-                case "Medium" -> {
-                    amountOfAddIn -= 1;
-                    coffee.setPrice(coffee.getPrice() - 1);
-                }
-                case "Small" -> {
-                    amountOfAddIn -= 1;
-                    coffee.setPrice(coffee.getPrice() - 0.5);
-                }
-
-            }
-
+            coffee.setPrice(coffee.getPrice() + getPriceForSize(servingSize, getLargeMediumSmallPrice()));
         }
+
+    }
+
+    public enum Creamers implements AddRemoveExtras {
+        MILK("Milk", 0), BUTTER("Butter", 0),
+        ALMONDMILK("Almond Milk", 0), COCONUTOIL("Coconut Oil", 0),
+        OATMILK("Oat Milk", 0);
+
+        private final String label;
+        private double[] largeMediumSmallPrice = {0.5, 1, 1.25};
+        private int amountOfAddIn;
+
+        Creamers(String label, int amountOfSweets) {
+            this.label = label;
+            this.amountOfAddIn = amountOfSweets;
+            this.largeMediumSmallPrice = largeMediumSmallPrice;
+        }
+
+        @Override
+        public String toString() {
+            return label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public int getAmountOfCreamers() {
+            return amountOfAddIn;
+        }
+
+        public double[] getLargeMediumSmallPrice() {
+            return largeMediumSmallPrice;
+        }
+
+        public void setAmountOfSweets(int amountOfSweets) {
+            this.amountOfAddIn = amountOfSweets;
+        }
+
+        @Override
+        public void add(String servingSize, Product coffee) {
+            amountOfAddIn++;
+            coffee.setPrice(coffee.getPrice() + getPriceForSize(servingSize, getLargeMediumSmallPrice()));
+        }
+
+        @Override
+        public void remove(String servingSize, Product coffee) {
+            if (getAmountOfCreamers() <= 0) {
+                System.out.println("INVALID LENGTH can't remove 0");
+                return;
+            }
+            amountOfAddIn--;
+            coffee.setPrice(coffee.getPrice() + getPriceForSize(servingSize, getLargeMediumSmallPrice()));
+        }
+
+    }
+
+    public enum Spices implements AddRemoveExtras{
+        CINNAMON("Cinnamon", 0), NUTMEG("Nutmeg",  0),
+        CAYENNEPEPPER("Cayenne Pepper ",  0), CARDAMOM("Cardamom",  0);
+
+        private final String label;
+        private double[] largeMediumSmallPrice = {0.5, 1, 1.25};
+        private int amountOfAddIn;
+
+        Spices(String label, int amountOfSweets) {
+            this.label = label;
+            this.amountOfAddIn = amountOfSweets;
+            this.largeMediumSmallPrice = largeMediumSmallPrice;
+        }
+
+        @Override
+        public String toString() {
+            return label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public int getAmountOfSpices() {
+            return amountOfAddIn;
+        }
+
+        public double[] getLargeMediumSmallPrice() {
+            return largeMediumSmallPrice;
+        }
+
+        public void setAmountOfSweets(int amountOfSweets) {
+            this.amountOfAddIn = amountOfSweets;
+        }
+
+        @Override
+        public void add(String servingSize, Product coffee) {
+            amountOfAddIn++;
+            coffee.setPrice(coffee.getPrice() + getPriceForSize(servingSize, getLargeMediumSmallPrice()));
+        }
+
+        @Override
+        public void remove(String servingSize, Product coffee) {
+            if (getAmountOfSpices() <= 0) {
+                System.out.println("INVALID LENGTH can't remove 0");
+                return;
+            }
+            amountOfAddIn--;
+            coffee.setPrice(coffee.getPrice() + getPriceForSize(servingSize, getLargeMediumSmallPrice()));
+        }
+
+    }
+
+    public enum Flavorings implements AddRemoveExtras{
+        VANILLAEXTRACT("Vanilla Extract", 0), CHOCOLATESHAVINGS("Chocolate Shavings",  0),
+        COCOANIBS("Cocoa Nibs",  0);
+
+        private final String label;
+        private double[] largeMediumSmallPrice = {0.5, 1, 1.25};
+        private int amountOfAddIn;
+
+        Flavorings(String label, int amountOfSweets) {
+            this.label = label;
+            this.amountOfAddIn = amountOfSweets;
+            this.largeMediumSmallPrice = largeMediumSmallPrice;
+        }
+
+        @Override
+        public String toString() {
+            return label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public int getAmountOfFlavorings() {
+            return amountOfAddIn;
+        }
+
+        public double[] getLargeMediumSmallPrice() {
+            return largeMediumSmallPrice;
+        }
+
+        public void setAmountOfSweets(int amountOfSweets) {
+            this.amountOfAddIn = amountOfSweets;
+        }
+
+        @Override
+        public void add(String servingSize, Product coffee) {
+            amountOfAddIn++;
+            coffee.setPrice(coffee.getPrice() + getPriceForSize(servingSize, getLargeMediumSmallPrice()));
+        }
+
+        @Override
+        public void remove(String servingSize, Product coffee) {
+            if (getAmountOfFlavorings() <= 0) {
+                System.out.println("INVALID LENGTH can't remove 0");
+                return;
+            }
+            amountOfAddIn--;
+            coffee.setPrice(coffee.getPrice() + getPriceForSize(servingSize, getLargeMediumSmallPrice()));
+        }
+
+    }
+
+    public enum DessertStyle implements AddRemoveExtras{
+        ICECREAM("Ice Cream", 0), CONDENSEDMILK("Condensed Milk",  0),
+        WHIPPEDCREAM("Whipped Cream",  0), BROWNIE("BROWNIE",  0);
+
+        private final String label;
+        private double[] largeMediumSmallPrice = {0.5, 1, 1.25};
+        private int amountOfAddIn;
+
+        DessertStyle(String label, int amountOfSweets) {
+            this.label = label;
+            this.amountOfAddIn = amountOfSweets;
+            this.largeMediumSmallPrice = largeMediumSmallPrice;
+        }
+
+        @Override
+        public String toString() {
+            return label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public int getAmountOfDessertStyle() {
+            return amountOfAddIn;
+        }
+
+        public double[] getLargeMediumSmallPrice() {
+            return largeMediumSmallPrice;
+        }
+
+        public void setAmountOfSweets(int amountOfSweets) {
+            this.amountOfAddIn = amountOfSweets;
+        }
+
+        @Override
+        public void add(String servingSize, Product coffee) {
+            amountOfAddIn++;
+            coffee.setPrice(coffee.getPrice() + getPriceForSize(servingSize, getLargeMediumSmallPrice()));
+        }
+
+        @Override
+        public void remove(String servingSize, Product coffee) {
+            if (getAmountOfDessertStyle() <= 0) {
+                System.out.println("INVALID LENGTH can't remove 0");
+                return;
+            }
+            amountOfAddIn--;
+            coffee.setPrice(coffee.getPrice() + getPriceForSize(servingSize, getLargeMediumSmallPrice()));
+        }
+
     }
 }

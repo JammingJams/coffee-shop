@@ -13,4 +13,11 @@ public interface AddRemoveExtras {
             default -> 0;
         };
     }
+    default boolean isAmountOfExtrasBelow1(int amountOfAddIn) {
+        if (amountOfAddIn <= 0) {
+            System.out.println("INVALID LENGTH can't remove 0");
+            return true;
+        }
+        return false;
+    }
 }

@@ -9,7 +9,7 @@ public abstract class Product {
         this.name = name;
         this.price = price;
         this.servingSize = servingSize;
-        quantity = quantity;
+        this.quantity = quantity;
     }
 
     public String getName() {
@@ -43,4 +43,5 @@ public abstract class Product {
     public void setQuantity(int quantity) {
         quantity = quantity;
     }
+
 }

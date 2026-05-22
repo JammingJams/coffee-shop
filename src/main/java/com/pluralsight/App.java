@@ -1,6 +1,8 @@
 package com.pluralsight;
 
 import com.pluralsight.Model.Drinks.Coffee;
+import com.pluralsight.Model.Drinks.AddIn;
+import com.pluralsight.Model.Drinks.Tea;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +38,9 @@ public class App {
             price += 1;
         }
 
-        Coffee.Sweeteners sweetAddIn = Coffee.Sweeteners.HONEY;
+        //Coffee.Sweeteners sweetAddIn = Coffee.Sweeteners.HONEY;
+        AddIn.Sweeteners sweetAddIn = AddIn.Sweeteners.HONEY;
+
         ArrayList<Integer> amountOfAddIn = new ArrayList<>(Arrays.asList(0,0,0,0,0,0));
 
         //We should do a for loop that would print out the sweetener ONLY if the amount is above 0
@@ -59,14 +63,48 @@ public class App {
             }
         }
 
-        for (Coffee.Sweeteners s : Coffee.Sweeteners.values()) {
+        for (AddIn.Sweeteners s : AddIn.Sweeteners.values()) {
+            System.out.println(s);
+
+        }
+
+        for (AddIn.Flavorings s : AddIn.Flavorings.values()) {
             System.out.println(s);
         }
 
+        Coffee coffee = new Coffee("Coffee",price,"Small",quantity,waterToDrinkRation);
 
-        Coffee coffee = new Coffee("Coffee",price,"S",quantity,waterToDrinkRation);
+        coffee.addAddIn(AddIn.Sweeteners.HONEY, coffee);
 
+        coffee.addAddIn(AddIn.Sweeteners.HONEY, coffee);
 
+        coffee.addAddIn(AddIn.Sweeteners.SUGAR, coffee);
+
+        System.out.println(coffee.getAddIns().values());
+
+        Coffee mocha = new Coffee("Coffee",price,"Small",quantity,waterToDrinkRation);
+
+        System.out.println(mocha.getPrice());
+
+        mocha.addAddIn(AddIn.Sweeteners.SYRUP, mocha);
+
+        mocha.addAddIn(AddIn.Sweeteners.HONEY, mocha);
+
+        System.out.println(mocha.getPrice());
+
+        System.out.println(mocha.getAddIns().values());
+
+        Tea tea = new Tea("Coffee",price,"Small",quantity,waterToDrinkRation);
+
+        tea.addAddIn(AddIn.Sweeteners.HONEY, tea);
+
+        tea.addAddIn(AddIn.Sweeteners.SUGAR, tea);
+
+        tea.addAddIn(AddIn.Sweeteners.SYRUP, tea);
+
+        System.out.println(tea.getAddIns().values());
+
+        System.out.println(tea.getPrice());
 
     }
 }

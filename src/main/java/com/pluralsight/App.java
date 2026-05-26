@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import com.pluralsight.Controller.InventoryLogger;
+import com.pluralsight.Interface.DateTimeLogger;
 import com.pluralsight.Model.BreakfastMeals.BakedGoods;
 import com.pluralsight.Model.BreakfastMeals.BreakfastSandwiches;
 import com.pluralsight.Model.BreakfastMeals.MeatTypes;
@@ -12,13 +14,26 @@ import com.pluralsight.Model.OtherItems.Snacks;
 import com.pluralsight.Model.Product;
 import com.pluralsight.Model.ShoppingCart;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-public class App {
+public class App implements DateTimeLogger {
     public static void main(String[] args) {
 
         ShoppingCart cart = new ShoppingCart();
+
+
+        HashMap<String, Product> inventory = InventoryLogger.getInventory();
+
+        InventoryLogger.inventoryWriter(inventory);
+
+        TreeMap<String, Product> sortedInv = new TreeMap<>(inventory);
+
+//        for (Map.Entry<String, Product> entry : sortedInv.entrySet()) {
+//            System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
+//        }
+        DateTimeLogger log = new DateTimeLogger() {};
+
+        System.out.println(log.logDateAndTime());
 
         double price = 0;
         String nameOfProduct = "Coffee";
@@ -130,4 +145,5 @@ public class App {
 
 
     }
+
 }

@@ -1,6 +1,9 @@
 package com.pluralsight.View;
 
 import com.pluralsight.Interface.AddIn;
+import com.pluralsight.Model.BreakfastMeals.BakedGoods;
+import com.pluralsight.Model.BreakfastMeals.BreakfastSandwiches;
+import com.pluralsight.Model.BreakfastMeals.MeatTypes;
 import com.pluralsight.Model.Drinks.Coffee;
 import com.pluralsight.Model.Drinks.Tea;
 import com.pluralsight.Model.Product;
@@ -102,11 +105,11 @@ public class MainMenu {
 
             switch (sc.nextLine().trim()) {
                 case "1" -> {
-                    addCoffeeProcess();
+                    addBakedGoods();
                     isUserInMenu = false;
                 }
                 case "2" -> {
-                    addTeaProcess();
+                    addBreakfastSandwiches();
                     isUserInMenu = false;
                 }
                 case "3" -> isUserInMenu = false;
@@ -124,7 +127,7 @@ public class MainMenu {
     }
 
     public static void addCoffeeProcess() {
-        boolean isUserInMenu = true, isUserInAddInLoop = false;
+        boolean isUserInMenu = true;
         String userChoice = "", size = "";
 
         while (isUserInMenu) {
@@ -155,7 +158,6 @@ public class MainMenu {
 
             if (isUserInMenu&&!invalidInput) {
                 size = sizeSelectionProcess();
-                isUserInAddInLoop = true;
 
                 Coffee coffee = new Coffee("Coffee", 0, size, 1);
                 switch (userChoice.toLowerCase()) {
@@ -168,8 +170,6 @@ public class MainMenu {
                 }
                 selectAddInProcess(coffee);
                 shoppingCart.add(coffee);
-                //Test area here
-                shoppingCart.getCart().forEach(p -> System.out.println(p));
 
                 isUserInMenu = false;
             }
@@ -179,7 +179,7 @@ public class MainMenu {
     }
 
     public static void addTeaProcess() {
-        boolean isUserInMenu = true, isUserInAddInLoop = false;
+        boolean isUserInMenu = true;
         String userChoice = "", size = "";
 
         while (isUserInMenu) {
@@ -206,7 +206,6 @@ public class MainMenu {
 
             if (isUserInMenu&&!invalidInput) {
                 size = sizeSelectionProcess();
-                isUserInAddInLoop = true;
 
                 Tea coffee = new Tea("Tea", 0, size, 1);
                 switch (userChoice.toLowerCase()) {
@@ -224,8 +223,116 @@ public class MainMenu {
         }
     }
 
-    public static void viewCartProcess() {
+    public static void addBreakfastSandwiches() {
+        boolean isUserInMenu = true;
+        String userChoice = "", size = "";
 
+        while (isUserInMenu) {
+            boolean invalidInput = false;
+
+            System.out.println("====----- Tea Selection Screen -----====");
+            System.out.println("<|T--> Select Your Type! <--T|>");
+            System.out.print("(1) -> Add Bacon, Egg, & Cheese Sandwich\n" +
+                    "(2) -> Add Sausage, Egg, & Cheese Sandwich\n" +
+                    "(3) -> Add Ham, Swish, & Pretzel Sliders\n" +
+                    "(4) -> Add Breakfast Grilled Cheese\n" +
+                    "(5) -> Exit Back to Home\n" +
+                    "Type Here: ");
+
+            switch (sc.nextLine().trim()) {
+                case "1" -> userChoice = "Bacon, Egg, Cheese";
+                case "2" -> userChoice = "Sausage, Egg, Cheese";
+                case "3" -> userChoice = "Ham, Swish, Pretzel Sliders";
+                case "4" -> userChoice = "Breakfast Grilled Cheese";
+                case "5" -> isUserInMenu = false;
+                default -> {
+                    System.out.println("Invalid user input!");
+                    invalidInput = true;
+                }
+            }
+
+            if (isUserInMenu&&!invalidInput) {
+                size = sizeSelectionProcess();
+
+                BreakfastSandwiches breakfastSandwiches = new BreakfastSandwiches("BreakfastSandwiches",
+                        0, size, 1);
+                switch (userChoice.toLowerCase()) {
+                    case "bacon, egg, cheese" -> breakfastSandwiches.setBreakfastSandwich
+                            (BreakfastSandwiches.SandwichTypes.BACONEGGCHEESE);
+                    case "sausage, egg, cheese" -> breakfastSandwiches.setBreakfastSandwich
+                            (BreakfastSandwiches.SandwichTypes.SAUSAGUEEGGCHEESE);
+                    case "ham, swish, pretzel sliders" -> breakfastSandwiches.setBreakfastSandwich
+                            (BreakfastSandwiches.SandwichTypes.HAMSWISHPRETEZELSLIDERS);
+                    case "breakfast grilled cheese" -> breakfastSandwiches.setBreakfastSandwich
+                            (BreakfastSandwiches.SandwichTypes.BREAKFASTGRILLEDCHEESE);
+                    default -> System.out.println("Coffee type does not exist");
+                }
+                addExtraMeatProcess(breakfastSandwiches);
+
+                shoppingCart.add(breakfastSandwiches);
+                isUserInMenu = false;
+            }
+
+
+        }
+    }
+
+    public static void addBakedGoods() {
+        boolean isUserInMenu = true;
+        String userChoice = "", size = "";
+
+        while (isUserInMenu) {
+            boolean invalidInput = false;
+
+            System.out.println("====----- Baked Goods Selection Screen -----====");
+            System.out.println("<|T--> Select Your Type! <--T|>");
+            System.out.print("(1) -> Add English Muffins\n" +
+                    "(2) -> Add Croissants\n" +
+                    "(3) -> Add Bagels\n" +
+                    "(4) -> Add Toast\n" +
+                    "(5) -> Exit Back to Home\n" +
+                    "Type Here: ");
+
+            switch (sc.nextLine().trim()) {
+                case "1" -> userChoice = "English Muffins";
+                case "2" -> userChoice = "Croissant";
+                case "3" -> userChoice = "Bagel";
+                case "4" -> userChoice = "Toast";
+                case "5" -> isUserInMenu = false;
+                default -> {
+                    System.out.println("Invalid user input!");
+                    invalidInput = true;
+                }
+            }
+
+            if (isUserInMenu&&!invalidInput) {
+                size = sizeSelectionProcess();
+
+                BakedGoods bakedGoods = new BakedGoods("BakedGoods",
+                        0, size, 1);
+                switch (userChoice.toLowerCase()) {
+                    case "english muffins" -> bakedGoods.setBakedGoods
+                            (BakedGoods.BakedGoodsType.ENGLISHMUFFINS);
+                    case "croissant" -> bakedGoods.setBakedGoods
+                            (BakedGoods.BakedGoodsType.CROISSANTS);
+                    case "bagel" -> bakedGoods.setBakedGoods
+                            (BakedGoods.BakedGoodsType.BAGELS);
+                    case "toast" -> bakedGoods.setBakedGoods
+                            (BakedGoods.BakedGoodsType.TOAST);
+                    default -> System.out.println("Coffee type does not exist");
+                }
+                addExtraMeatProcess(bakedGoods);
+
+                shoppingCart.add(bakedGoods);
+                isUserInMenu = false;
+            }
+
+
+        }
+    }
+
+    public static void viewCartProcess() {
+        shoppingCart.getCart().forEach(p -> System.out.println(p));
     }
 
     public static void checkOutProcess() {
@@ -284,6 +391,51 @@ public class MainMenu {
                 case "5" -> addDesertStyleProcess(coffee);
                 case "6" -> isUserInMenu = false;
                 default -> System.out.println("Invalid user input!");
+            }
+        }
+    }
+
+    //NOTE THE PRICE DISPLAY HERE IS BUGGED FOR BAKED GOODS
+
+    public static void addExtraMeatProcess(Product breakfastMeals) {
+        Coffee test = new Coffee("",1,"",1);
+        boolean isUserInMenu = true;
+
+        while (isUserInMenu) {
+
+            System.out.println("====----- Extra Meats Selection Screen -----====");
+            System.out.print("(1) -> Add Sausage [Price: " + test.getPriceForSize(breakfastMeals.getServingSize(),
+                    MeatTypes.SAUSAGE.getBreakfastMeatPrice()) + "]\n" +
+                    "(2) -> Add Cheese [Price: " + test.getPriceForSize(breakfastMeals.getServingSize(),
+                    MeatTypes.CHEESE.getBreakfastMeatPrice()) + "]\n" +
+                    "(3) -> Add Egg [Price: " + test.getPriceForSize(breakfastMeals.getServingSize(),
+                    MeatTypes.EGG.getBreakfastMeatPrice()) + "]\n" +
+                    "(4) -> Add Bacon [Price: " + test.getPriceForSize(breakfastMeals.getServingSize(),
+                    MeatTypes.BACON.getBreakfastMeatPrice()) + "]\n" +
+                    "(5) -> Exit AddIn Menu\n" +
+                    "Type Here: ");
+
+            if (breakfastMeals instanceof BreakfastSandwiches) {
+
+                switch (sc.nextLine().trim()) {
+                    case "1" -> ((BreakfastSandwiches) breakfastMeals).add(MeatTypes.SAUSAGE);
+                    case "2" -> ((BreakfastSandwiches) breakfastMeals).add(MeatTypes.CHEESE);
+                    case "3" -> ((BreakfastSandwiches) breakfastMeals).add(MeatTypes.EGG);
+                    case "4" -> ((BreakfastSandwiches) breakfastMeals).add(MeatTypes.BACON);
+                    case "5" -> isUserInMenu = false;
+                    default -> System.out.println("Invalid user input!");
+                }
+            }
+
+            else if (breakfastMeals instanceof BakedGoods) {
+                switch (sc.nextLine().trim()) {
+                    case "1" -> ((BakedGoods) breakfastMeals).add(MeatTypes.SAUSAGE);
+                    case "2" -> ((BakedGoods) breakfastMeals).add(MeatTypes.CHEESE);
+                    case "3" -> ((BakedGoods) breakfastMeals).add(MeatTypes.EGG);
+                    case "4" -> ((BakedGoods) breakfastMeals).add(MeatTypes.BACON);
+                    case "5" -> isUserInMenu = false;
+                    default -> System.out.println("Invalid user input!");
+                }
             }
         }
     }

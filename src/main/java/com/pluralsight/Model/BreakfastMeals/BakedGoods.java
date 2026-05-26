@@ -34,13 +34,13 @@ public class BakedGoods extends Product implements AddRemoveExtraMeats {
         this.extraMeats.put(m, extraMeats.getOrDefault(m,0) + 1);
 
         if (m == MeatTypes.SAUSAGE)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
         else if (m == MeatTypes.EGG)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
         else if (m == MeatTypes.CHEESE)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
         else if (m == MeatTypes.BACON)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
     }
 
     public void remove(MeatTypes m) {

@@ -13,14 +13,16 @@ import com.pluralsight.Model.OtherItems.Desserts;
 import com.pluralsight.Model.OtherItems.Snacks;
 import com.pluralsight.Model.Product;
 import com.pluralsight.Model.ShoppingCart;
+import com.pluralsight.View.MainMenu;
 
 import java.util.*;
 
 public class App implements DateTimeLogger {
     public static void main(String[] args) {
 
-        ShoppingCart cart = new ShoppingCart();
+        MainMenu.runApp();
 
+        ShoppingCart cart = new ShoppingCart();
 
         HashMap<String, Product> inventory = InventoryLogger.getInventory();
 
@@ -28,9 +30,9 @@ public class App implements DateTimeLogger {
 
         TreeMap<String, Product> sortedInv = new TreeMap<>(inventory);
 
-//        for (Map.Entry<String, Product> entry : sortedInv.entrySet()) {
-//            System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
-//        }
+       for (Map.Entry<String, Product> entry : sortedInv.entrySet()) {
+            System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
+        }
         DateTimeLogger log = new DateTimeLogger() {};
 
         System.out.println(log.logDateAndTime());

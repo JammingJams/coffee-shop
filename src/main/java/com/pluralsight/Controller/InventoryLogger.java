@@ -23,6 +23,7 @@ public class InventoryLogger {
             //instance
             bufferedReader.readLine();
             bufferedReader.readLine();
+            bufferedReader.readLine();
 
             String text, key;
             double price = 0;
@@ -112,8 +113,30 @@ public class InventoryLogger {
 
             bufferedWriter.write("CoffeeShopsName|Address|Contacts");
             bufferedWriter.newLine();
+            bufferedWriter.write("TheCouping|123 Wolf Street|TheCouping@gmail.com");
+            bufferedWriter.newLine();
             bufferedWriter.write("ClassName|InstanceType|Price|ServingSize|Amount");
             bufferedWriter.newLine();
+
+            TreeMap<String, Product> sortedInv = new TreeMap<>(inventory);
+
+            for (Map.Entry<String, Product> entry : sortedInv.entrySet()) {
+                System.out.println(entry.getValue());
+                String value = String.valueOf(entry.getValue());
+                bufferedWriter.write(value);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void receiptWriter(HashMap<String, Product> inventory) {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/CoffeeShopInventory.csv", true));
 
             TreeMap<String, Product> sortedInv = new TreeMap<>(inventory);
 

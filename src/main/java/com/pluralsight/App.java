@@ -7,6 +7,8 @@ import com.pluralsight.Model.Drinks.Coffee;
 import com.pluralsight.Model.Drinks.Coffee.CoffeeType;
 import com.pluralsight.Interface.AddIn;
 import com.pluralsight.Model.Drinks.Tea;
+import com.pluralsight.Model.OtherItems.Desserts;
+import com.pluralsight.Model.OtherItems.Snacks;
 import com.pluralsight.Model.Product;
 import com.pluralsight.Model.ShoppingCart;
 
@@ -111,6 +113,15 @@ public class App {
 
         cart.add(grilledChees);
         cart.add(bagel);
+
+        Desserts cake = new Desserts("Desserts",0,"Large",1);
+        cake.setDesserts(Desserts.DessertType.CUPCAKE);
+
+        Snacks cheetos = new Snacks("Snacks",0,"Small",1);
+        cheetos.setSnackType(Snacks.SnackType.CHEETOS);
+
+        cart.add(cake);
+        cart.add(cheetos);
 
         cart.getCart().forEach(p -> System.out.println(p));
 

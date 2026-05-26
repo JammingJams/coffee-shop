@@ -1,8 +1,12 @@
 package com.pluralsight;
 
+import com.pluralsight.Model.BreakfastMeals.MeatTypes;
 import com.pluralsight.Model.Drinks.Coffee;
-import com.pluralsight.Model.Drinks.AddIn;
+import com.pluralsight.Model.Drinks.Coffee.CoffeeType;
+import com.pluralsight.Interface.AddIn;
 import com.pluralsight.Model.Drinks.Tea;
+import com.pluralsight.Model.Product;
+import com.pluralsight.Model.ShoppingCart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,23 +14,14 @@ import java.util.Arrays;
 public class App {
     public static void main(String[] args) {
 
+        ShoppingCart cart = new ShoppingCart();
+
         double price = 0;
         String nameOfProduct = "Coffee";
         int servingSize = 1;
         int quantity = 1;
         int waterToDrinkRation = 2;
 
-        if (nameOfProduct.equalsIgnoreCase("Coffee")) {
-            if (servingSize == 1) {
-                price = 6.50;
-            }
-            else if (servingSize == 2) {
-                price = 9.50;
-            }
-            else if (servingSize == 3) {
-                price = 11.00;
-            }
-        }
 
         if (waterToDrinkRation == 1) {
             price += 0.25;
@@ -41,70 +36,58 @@ public class App {
         //Coffee.Sweeteners sweetAddIn = Coffee.Sweeteners.HONEY;
         AddIn.Sweeteners sweetAddIn = AddIn.Sweeteners.HONEY;
 
-        ArrayList<Integer> amountOfAddIn = new ArrayList<>(Arrays.asList(0,0,0,0,0,0));
 
-        //We should do a for loop that would print out the sweetener ONLY if the amount is above 0
+        Coffee americano = new Coffee("Coffee",price,"Small",quantity);
 
-        int c = 1;
+        americano.setCoffeeType(CoffeeType.AMERICANO);
 
-        switch (sweetAddIn) {
-            case SUGAR -> {
-                //This would add 1 to sugar amount for Now we will have four separate variables ALSO since this doesn't
-                // add we don't have to worry about removing too much
-                price += 0.25;
-                amountOfAddIn.set(0,c);
-                c++;
+        americano.add(AddIn.Sweeteners.HONEY);
+        americano.add(AddIn.Sweeteners.HONEY);
+        americano.add(AddIn.Sweeteners.SUGAR);
 
-            }
-            case HONEY -> {
-                price += 0.75;
-                amountOfAddIn.set(1,c);
-                c++;
-            }
+        Coffee mocha = new Coffee("Coffee",price,"Medium",quantity);
+
+        mocha.setCoffeeType(CoffeeType.MOCHA);
+
+        mocha.add(AddIn.Sweeteners.HONEY);
+        mocha.add(AddIn.Sweeteners.HONEY);
+        mocha.add(AddIn.Sweeteners.SUGAR);
+
+        Tea ube = new Tea("Tea",0,"Large", 1);
+
+        ube.setTeaType(Tea.TeaType.UBE);
+
+        ube.add(AddIn.Flavorings.CHOCOLATESHAVINGS);
+        ube.add(AddIn.DessertStyle.BROWNIE);
+        ube.add(AddIn.Spices.CINNAMON);
+
+        ube.getAddIns().forEach((key, value) -> System.out.println("Type: " + key + " Amount: " + value));
+
+        cart.add(americano);
+        cart.add(ube);
+        cart.add(mocha);
+
+        cart.getCart().stream().filter(p -> p instanceof Coffee).forEach(c ->
+                ((Coffee) c).getAddIns().forEach((key, value) -> System.out.println("Type: " + key + " Amount: " + value)));
+
+        for (int i = 0; i < 5; i++) {
+            Tea tea = new Tea("Tea",0,"Large",1);
+
+            tea.setTeaType(Tea.TeaType.BOBA);
+
+            tea.add(AddIn.Spices.CINNAMON);
+            tea.add(AddIn.Spices.CARDAMOM);
+            tea.add(AddIn.Sweeteners.SYRUP);
+            tea.add(AddIn.Spices.NUTMEG);
+
+            cart.add(tea);
         }
 
-        for (AddIn.Sweeteners s : AddIn.Sweeteners.values()) {
-            System.out.println(s);
+        cart.getCart().forEach(p -> System.out.println(p));
 
-        }
 
-        for (AddIn.Flavorings s : AddIn.Flavorings.values()) {
-            System.out.println(s);
-        }
 
-        Coffee coffee = new Coffee("Coffee",price,"Small",quantity,waterToDrinkRation);
 
-        coffee.addAddIn(AddIn.Sweeteners.HONEY, coffee);
-
-        coffee.addAddIn(AddIn.Sweeteners.HONEY, coffee);
-
-        coffee.addAddIn(AddIn.Sweeteners.SUGAR, coffee);
-
-        System.out.println(coffee.getAddIns().values());
-
-        Coffee mocha = new Coffee("Coffee",price,"Small",quantity,waterToDrinkRation);
-
-        System.out.println(mocha.getPrice());
-
-        mocha.addAddIn(AddIn.Sweeteners.SYRUP, mocha);
-
-        mocha.addAddIn(AddIn.Sweeteners.HONEY, mocha);
-
-        System.out.println(mocha.getPrice());
-
-        System.out.println(mocha.getAddIns().values());
-
-        Tea tea = new Tea("Coffee",price,"Small",quantity,waterToDrinkRation);
-
-        tea.addAddIn(AddIn.Sweeteners.HONEY, tea);
-
-        tea.addAddIn(AddIn.Sweeteners.SUGAR, tea);
-
-        tea.addAddIn(AddIn.Sweeteners.SYRUP, tea);
-
-        System.out.println(tea.getAddIns().values());
-
-        System.out.println(tea.getPrice());
 
     }
 }

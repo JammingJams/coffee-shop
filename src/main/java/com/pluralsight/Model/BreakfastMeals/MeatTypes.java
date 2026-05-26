@@ -5,7 +5,7 @@ public enum MeatTypes {
 
     private final String label;
     private final double price;
-    private final double[] breakfastMeatPrice = {0, 1.5};
+    private final double[] breakfastMeatPrice = {0, 1.5, 2.5};
 
     MeatTypes(String label, double price) {
         this.label = label;

@@ -395,23 +395,21 @@ public class MainMenu {
         }
     }
 
-    //NOTE THE PRICE DISPLAY HERE IS BUGGED FOR BAKED GOODS
-
     public static void addExtraMeatProcess(Product breakfastMeals) {
-        Coffee test = new Coffee("",1,"",1);
+        BreakfastSandwiches test = new BreakfastSandwiches("",1,"",1);
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
 
             System.out.println("====----- Extra Meats Selection Screen -----====");
-            System.out.print("(1) -> Add Sausage [Price: " + test.getPriceForSize(breakfastMeals.getServingSize(),
-                    MeatTypes.SAUSAGE.getBreakfastMeatPrice()) + "]\n" +
-                    "(2) -> Add Cheese [Price: " + test.getPriceForSize(breakfastMeals.getServingSize(),
-                    MeatTypes.CHEESE.getBreakfastMeatPrice()) + "]\n" +
-                    "(3) -> Add Egg [Price: " + test.getPriceForSize(breakfastMeals.getServingSize(),
-                    MeatTypes.EGG.getBreakfastMeatPrice()) + "]\n" +
-                    "(4) -> Add Bacon [Price: " + test.getPriceForSize(breakfastMeals.getServingSize(),
-                    MeatTypes.BACON.getBreakfastMeatPrice()) + "]\n" +
+            System.out.print("(1) -> Add Sausage [Price: " + (test.getPriceForSize(breakfastMeals.getServingSize(),
+                    MeatTypes.SAUSAGE.getBreakfastMeatPrice()) + MeatTypes.SAUSAGE.getPrice()) + "]\n" +
+                    "(2) -> Add Cheese [Price: " + (test.getPriceForSize(breakfastMeals.getServingSize(),
+                    MeatTypes.CHEESE.getBreakfastMeatPrice()) + MeatTypes.CHEESE.getPrice()) + "]\n" +
+                    "(3) -> Add Egg [Price: " + (test.getPriceForSize(breakfastMeals.getServingSize(),
+                    MeatTypes.EGG.getBreakfastMeatPrice()) + MeatTypes.EGG.getPrice()) + "]\n" +
+                    "(4) -> Add Bacon [Price: " + (test.getPriceForSize(breakfastMeals.getServingSize(),
+                    MeatTypes.BACON.getBreakfastMeatPrice()) +  MeatTypes.SAUSAGE.getPrice()) + "]\n" +
                     "(5) -> Exit AddIn Menu\n" +
                     "Type Here: ");
 

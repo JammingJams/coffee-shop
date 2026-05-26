@@ -7,23 +7,23 @@ import com.pluralsight.Model.Product;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BreakfastSandwiches extends Product implements AddRemoveExtraMeats {
-    private String sandwichName;
+public class BakedGoods extends Product implements AddRemoveExtraMeats {
+    private String bakedGoodsName;
     private Map<MeatTypes, Integer> extraMeats;
     private String meatType;
 
-    public BreakfastSandwiches(String name, double price, String servingSize, int quantity) {
+    public BakedGoods(String name, double price, String servingSize, int quantity) {
         super(name, price, servingSize, quantity);
-        this.sandwichName = "";
+        this.bakedGoodsName = "";
         this.extraMeats = new HashMap<>();
     }
 
     public String getSandwichName() {
-        return sandwichName;
+        return bakedGoodsName;
     }
 
     public void setSandwichName(String sandwichName) {
-        this.sandwichName = sandwichName;
+        this.bakedGoodsName = sandwichName;
     }
 
     public Map<MeatTypes, Integer> getExtraMeats() {
@@ -60,33 +60,33 @@ public class BreakfastSandwiches extends Product implements AddRemoveExtraMeats 
         }
 
         if (m == MeatTypes.SAUSAGE)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
         else if (m == MeatTypes.EGG)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
         else if (m == MeatTypes.CHEESE)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
         else if (m == MeatTypes.BACON)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
     }
 
     //This sets the price for and name for the coffee
     // double[] smallMediumLargePrice
-    public void setBreakfastSandwich(SandwichTypes s) {
-        if (s == SandwichTypes.BACONEGGCHEESE) {
-            setSandwichName("Bacon, Egg, & Cheese");
-            setPrice(s.getPrice() + getPriceForSize(getServingSize(), s.getSmallMediumLargePrice()));
+    public void setBakedGoods(BakedGoodsType b) {
+        if (b == BakedGoodsType.ENGLISHMUFFINS) {
+            setSandwichName("English Muffins");
+            setPrice(b.getPrice() + getPriceForSize(getServingSize(), b.getSmallMediumLargePrice()));
         }
-        else if (s == SandwichTypes.SAUSAGUEEGGCHEESE) {
-            setSandwichName("Sausage, Egg, & Cheese");
-            setPrice(s.getPrice() + getPriceForSize(getServingSize(), s.getSmallMediumLargePrice()));
+        else if (b == BakedGoodsType.BAGELS) {
+            setSandwichName("Bagels");
+            setPrice(b.getPrice() + getPriceForSize(getServingSize(), b.getSmallMediumLargePrice()));
         }
-        else if (s == SandwichTypes.HAMSWISHPRETEZELSLIDERS) {
-            setSandwichName("Ham, Swish, Pretzel, & Sliders");
-            setPrice(s.getPrice() + getPriceForSize(getServingSize(), s.getSmallMediumLargePrice()));
+        else if (b == BakedGoodsType.CROISSANTS) {
+            setSandwichName("Croissants");
+            setPrice(b.getPrice() + getPriceForSize(getServingSize(), b.getSmallMediumLargePrice()));
         }
-        else if (s == SandwichTypes.BREAKFASTGRILLEDCHEESE) {
-            setSandwichName("Grilled Cheese");
-            setPrice(s.getPrice() + getPriceForSize(getServingSize(), s.getSmallMediumLargePrice()));
+        else if (b == BakedGoodsType.TOAST) {
+            setSandwichName("Toast");
+            setPrice(b.getPrice() + getPriceForSize(getServingSize(), b.getSmallMediumLargePrice()));
         }
 
     }
@@ -114,16 +114,16 @@ public class BreakfastSandwiches extends Product implements AddRemoveExtraMeats 
                 getName(), getSandwichName(), getPrice(), getServingSize(), getQuantity(), amountOfAddIn);
     }
 
-    public enum SandwichTypes {
-        BACONEGGCHEESE("Bacon, Egg, & Cheese", 4.50), SAUSAGUEEGGCHEESE("Sausage, Egg, & Cheese", 4.50),
-        HAMSWISHPRETEZELSLIDERS("Ham, Swish, Pretzel, & Sliders", 7.00),
-        BREAKFASTGRILLEDCHEESE("Grilled Cheese", 6.00);
+    public enum BakedGoodsType {
+        ENGLISHMUFFINS("English Muffins", 1), CROISSANTS("Croissants", 2),
+        BAGELS("Bagels", 1.5),
+        TOAST("Toast", 0.75);
 
         private final String label;
         private final double price;
-        private double[] smallMediumLargePrice = {0, 2.50, 3.50};
+        private double[] smallMediumLargePrice = {0, 0.75, 1.50};
 
-        SandwichTypes(String label, double price) {
+        BakedGoodsType(String label, double price) {
             this.label = label;
             this.price = price;
             this.smallMediumLargePrice = smallMediumLargePrice;

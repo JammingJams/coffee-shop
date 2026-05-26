@@ -39,7 +39,6 @@ public class Coffee extends Product implements AddIn, AddRemoveExtras{
         this.coffeeTypeName = coffeeTypeName;
     }
 
-    @Override
     public void add(AddIn a) {
         this.addIns.put(a, addIns.getOrDefault(a,0) + 1);
 
@@ -56,7 +55,6 @@ public class Coffee extends Product implements AddIn, AddRemoveExtras{
 
     }
 
-    @Override
     public void remove(AddIn a) {
         if (!addIns.containsKey(a)) {
             System.out.println("INVALID can't remove 0 from list");

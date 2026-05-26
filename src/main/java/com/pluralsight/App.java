@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import com.pluralsight.Model.BreakfastMeals.BakedGoods;
+import com.pluralsight.Model.BreakfastMeals.BreakfastSandwiches;
 import com.pluralsight.Model.BreakfastMeals.MeatTypes;
 import com.pluralsight.Model.Drinks.Coffee;
 import com.pluralsight.Model.Drinks.Coffee.CoffeeType;
@@ -82,6 +84,33 @@ public class App {
 
             cart.add(tea);
         }
+
+        BreakfastSandwiches grilledChees = new BreakfastSandwiches("Breakfast Sandwich", 0, "Medium", 1);
+
+        grilledChees.setBreakfastSandwich(BreakfastSandwiches.SandwichTypes.BREAKFASTGRILLEDCHEESE);
+
+        grilledChees.remove(MeatTypes.BACON);
+
+        grilledChees.add(MeatTypes.BACON);
+        grilledChees.add(MeatTypes.BACON);
+        grilledChees.add(MeatTypes.BACON);
+        grilledChees.add(MeatTypes.BACON);
+        grilledChees.add(MeatTypes.BACON);
+        grilledChees.add(MeatTypes.SAUSAGE);
+        grilledChees.add(MeatTypes.EGG);
+        grilledChees.add(MeatTypes.CHEESE);
+
+        BakedGoods bagel = new BakedGoods("Baked Goods",0,"Large",1);
+
+        bagel.setBakedGoods(BakedGoods.BakedGoodsType.BAGELS);
+        bagel.remove(MeatTypes.SAUSAGE);
+        bagel.add(MeatTypes.EGG);
+        bagel.add(MeatTypes.EGG);
+
+        System.out.println(grilledChees);
+
+        cart.add(grilledChees);
+        cart.add(bagel);
 
         cart.getCart().forEach(p -> System.out.println(p));
 

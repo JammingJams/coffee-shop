@@ -1,0 +1,171 @@
+package com.pluralsight.Model.SpecialityItems;
+
+import com.pluralsight.Interface.AddRemoveExtras;
+import com.pluralsight.Model.Drinks.Coffee;
+import com.pluralsight.Model.Product;
+import com.pluralsight.Interface.AddIn;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class SpecialCoffee extends Coffee implements AddIn, AddRemoveExtras{
+    private int waterToDrinkRatio;
+    private String coffeeTypeName;
+    private Map<AddIn, Integer> addIns;
+
+    public SpecialCoffee(String name, double price, String servingSize, int quantity) {
+        super(name, price, servingSize, quantity);
+        this.waterToDrinkRatio = waterToDrinkRatio;
+        this.addIns = new HashMap<>();
+        this.coffeeTypeName = "";
+    }
+
+    public int getWaterToDrinkRatio() {
+        return waterToDrinkRatio;
+    }
+
+    public void setWaterToDrinkRatio(int waterToDrinkRatio) {
+        this.waterToDrinkRatio = waterToDrinkRatio;
+    }
+
+    public Map<AddIn, Integer> getAddIns() {
+        return addIns;
+    }
+
+    public String getCoffeeTypeName() {
+        return coffeeTypeName;
+    }
+
+    public void setCoffeeTypeName(String coffeeTypeName) {
+        this.coffeeTypeName = coffeeTypeName;
+    }
+
+    public void add(AddIn a) {
+        this.addIns.put(a, addIns.getOrDefault(a,0) + 1);
+
+        if (a instanceof Sweeteners)
+            setPrice(getPrice() + getPriceForSize(getServingSize(), ((Sweeteners) a).getLargeMediumSmallPrice()));
+        else if (a instanceof Flavorings)
+            setPrice(getPrice() + getPriceForSize(getServingSize(), ((Flavorings) a).getLargeMediumSmallPrice()));
+        else if (a instanceof Creamers)
+            setPrice(getPrice() + getPriceForSize(getServingSize(), ((Creamers) a).getLargeMediumSmallPrice()));
+        else if (a instanceof Spices)
+            setPrice(getPrice() + getPriceForSize(getServingSize(), ((Spices) a).getLargeMediumSmallPrice()));
+        else if (a instanceof DessertStyle)
+            setPrice(getPrice() + getPriceForSize(getServingSize(), ((DessertStyle) a).getLargeMediumSmallPrice()));
+
+    }
+
+    public void remove(AddIn a) {
+        if (!addIns.containsKey(a)) {
+            System.out.println("INVALID can't remove 0 from list");
+            return;
+        }
+
+        int amountOfAddIn = addIns.get(a);
+
+        if (amountOfAddIn > 0) {
+            addIns.remove(a);
+        }
+        else {
+            System.out.println("INVALID can't remove 0 from list");
+            return;
+        }
+
+        if (a instanceof Sweeteners)
+            setPrice(getPrice() - getPriceForSize(getServingSize(), ((Sweeteners) a).getLargeMediumSmallPrice()));
+        else if (a instanceof Flavorings)
+            setPrice(getPrice() - getPriceForSize(getServingSize(), ((Flavorings) a).getLargeMediumSmallPrice()));
+        else if (a instanceof Creamers)
+            setPrice(getPrice() - getPriceForSize(getServingSize(), ((Creamers) a).getLargeMediumSmallPrice()));
+        else if (a instanceof Spices)
+            setPrice(getPrice() - getPriceForSize(getServingSize(), ((Spices) a).getLargeMediumSmallPrice()));
+        else if (a instanceof DessertStyle)
+            setPrice(getPrice() - getPriceForSize(getServingSize(), ((DessertStyle) a).getLargeMediumSmallPrice()));
+
+    }
+
+    //This sets the price for and name for the coffee
+    // double[] smallMediumLargePrice
+    public void setCoffeeType(SpecialCoffeeType c) {
+        if (c.getLabel().equalsIgnoreCase("Birthday Blitz")) {
+            setCoffeeTypeName("Birthday Blitz");
+            setPrice(c.getPrice() + getPriceForSize(getServingSize(), c.getSmallMediumLargePrice()));
+        }
+        else if (c.getLabel().equalsIgnoreCase("Carameltdown")) {
+            setCoffeeTypeName("Carameltdown");
+            setPrice(c.getPrice() + getPriceForSize(getServingSize(), c.getSmallMediumLargePrice()));
+        }
+        else if (c.getLabel().equalsIgnoreCase("Spice my Ice")) {
+            setCoffeeTypeName("Spice my Ice");
+            setPrice(c.getPrice() + getPriceForSize(getServingSize(), c.getSmallMediumLargePrice()));
+        }
+        else if (c.getLabel().equalsIgnoreCase("Choco Mucho")) {
+            setCoffeeTypeName("Choco Mucho");
+            setPrice(c.getPrice() + getPriceForSize(getServingSize(), c.getSmallMediumLargePrice()));
+        }
+        else if (c.getLabel().equalsIgnoreCase("Creamy's Delight")) {
+            setCoffeeTypeName("Creamy's Delight");
+            setPrice(c.getPrice() + getPriceForSize(getServingSize(), c.getSmallMediumLargePrice()));
+        }
+
+
+    }
+
+    @Override
+    public String toString() {
+        String amountOfAddIn = "";
+
+        if (getAddIns() == null) {
+            return String.format("%s|%s|%.2f|%s|x%d", getName(), getCoffeeTypeName(), getPrice(), getServingSize(), getQuantity());
+        }
+
+        for (AddIn a : getAddIns().keySet()) {
+            amountOfAddIn += a + "|x" + getAddIns().get(a) + "|";
+        }
+
+        int index = amountOfAddIn.lastIndexOf("|");
+
+        if (index == -1) {
+            return String.format("%s|%s|%.2f|%s|x%d", getName(), getCoffeeTypeName(), getPrice(), getServingSize(), getQuantity());
+        }
+
+        amountOfAddIn = amountOfAddIn.substring(0, index) + "" + amountOfAddIn.substring(index + 1);
+        return String.format("%s|%s|%.2f|%s|x%d|%s",
+                getName(), getCoffeeTypeName(), getPrice(), getServingSize(), getQuantity(), amountOfAddIn);
+    }
+
+    //This enum is a constructor for our Coffee it allows us to expand and update our stock and prices
+    public enum SpecialCoffeeType {
+        BIRTHDAYBLITZ("Birthday Blitz", 12), CARAMELTDOWN("Carameltdown", 8.5), SPICEMYICE("Spice my Ice", 7.5),
+        CHOCOMUCHO("Choco Mucho", 9.75), CREAMYSDELIGHT("Creamy's Delight", 9.25);
+
+        private final String label;
+        private final double price;
+        private final double[] smallMediumLargePrice = {0, 3, 4.5};
+
+        SpecialCoffeeType(String label, double price) {
+            this.label = label;
+            this.price = price;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public double[] getSmallMediumLargePrice() {
+            return smallMediumLargePrice;
+        }
+
+
+        @Override
+        public String toString() {
+            return label;
+        }
+    }
+
+}

@@ -1,5 +1,6 @@
 package com.pluralsight.Controller;
 
+import com.pluralsight.Interface.DateTimeLogger;
 import com.pluralsight.Model.BreakfastMeals.BakedGoods;
 import com.pluralsight.Model.BreakfastMeals.BreakfastSandwiches;
 import com.pluralsight.Model.Drinks.Coffee;
@@ -7,6 +8,7 @@ import com.pluralsight.Model.Drinks.Tea;
 import com.pluralsight.Model.OtherItems.Desserts;
 import com.pluralsight.Model.OtherItems.Snacks;
 import com.pluralsight.Model.Product;
+import com.pluralsight.Model.ShoppingCart;
 
 import java.io.*;
 import java.util.HashMap;
@@ -14,6 +16,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class InventoryLogger {
+
+    public static DateTimeLogger log = new DateTimeLogger() {};
 
     public static HashMap<String, Product> getInventory() {
         try {
@@ -134,18 +138,22 @@ public class InventoryLogger {
 
     }
 
-    public static void receiptWriter(HashMap<String, Product> inventory) {
+    public static void receiptWriter(ShoppingCart userCart) {
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/CoffeeShopInventory.csv", true));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/Reciept.txt", true));
 
-            TreeMap<String, Product> sortedInv = new TreeMap<>(inventory);
-
-            for (Map.Entry<String, Product> entry : sortedInv.entrySet()) {
-                System.out.println(entry.getValue());
-                String value = String.valueOf(entry.getValue());
-                bufferedWriter.write(value);
+            for (Product p : userCart.getCart()) {
+                String productDescription = String.valueOf(p);
+                bufferedWriter.write(productDescription);
                 bufferedWriter.newLine();
             }
+            String checkoutMessage = "Total Cost is: " +
+                    userCart.getCart().stream().mapToDouble(p -> p.getPrice()).sum()
+                    + "\nUser checkout at: " + log.logDateAndTime();
+
+            bufferedWriter.write(checkoutMessage);
+            bufferedWriter.newLine();
+
             bufferedWriter.close();
         }
         catch (IOException e) {

@@ -63,8 +63,12 @@ public class Coffee extends Product implements AddIn, AddRemoveExtras{
 
         int amountOfAddIn = addIns.get(a);
 
+
         if (amountOfAddIn > 0) {
-            addIns.remove(a);
+            this.addIns.put(a, addIns.getOrDefault(a,0) - 1);
+            if (addIns.get(a) == 0) {
+                addIns.remove(a);
+            }
         }
         else {
             System.out.println("INVALID can't remove 0 from list");

@@ -52,7 +52,10 @@ public class BakedGoods extends Product implements AddRemoveExtraMeats {
         int amountOfAddIn = extraMeats.get(m);
 
         if (amountOfAddIn > 0) {
-            extraMeats.remove(m);
+            this.extraMeats.put(m, extraMeats.getOrDefault(m,0) - 1);
+            if (extraMeats.get(m) == 0) {
+                extraMeats.remove(m);
+            }
         }
         else {
             System.out.println("INVALID can't remove 0 from list");

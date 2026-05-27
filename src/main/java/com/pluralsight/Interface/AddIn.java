@@ -59,7 +59,7 @@ public interface AddIn {
 
     public enum Spices implements AddIn{
         CINNAMON("Cinnamon"), NUTMEG("Nutmeg"),
-        CAYENNEPEPPER("Cayenne Pepper "), CARDAMOM("Cardamom");
+        CAYENNEPEPPER("Cayenne Pepper"), CARDAMOM("Cardamom");
 
         private final String label;
         private double[] largeMediumSmallPrice = {0.35, 0.85, 1.1};

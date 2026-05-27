@@ -1,0 +1,12 @@
+SpecialCoffee|Choco Mucho|27.75|Large|x1|Butter|x2|Cocoa Nibs|x1|Coconut Oil|x2|Chocolate Shavings|x1|Almond Milk|x2|Brownie|x1|Oat Milk|x2|Milk|x3
+Snacks|Doritos|2.50|Large|x1
+Desserts|Cupcake|5.50|Medium|x1
+Desserts|Cupcake|3.50|Small|x1
+Total Cost is: 39.25
+User checkout at: 202605-114954
+SpecialCoffee|Choco Mucho|27.75|Large|x1|Butter|x2|Cocoa Nibs|x1|Coconut Oil|x2|Chocolate Shavings|x1|Almond Milk|x2|Brownie|x1|Oat Milk|x2|Milk|x3
+Snacks|Doritos|2.50|Large|x1
+Desserts|Cupcake|5.50|Medium|x1
+Desserts|Cupcake|3.50|Small|x1
+Total Cost is: 39.25
+User checkout at: 202605-115036

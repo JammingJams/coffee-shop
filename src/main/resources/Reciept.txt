@@ -10,3 +10,20 @@ Desserts|Cupcake|5.50|Medium|x1
 Desserts|Cupcake|3.50|Small|x1
 Total Cost is: 39.25
 User checkout at: 202605-115036
+Coffee|Cappuccino|13.00|Large|x1|Milk|x1|Butter|x1
+BreakfastSandwiches|Sausage, Egg, & Cheese|26.00|Large|x1|Bacon|x1|Egg|x1
+Total Cost is: 39.0
+User checkout at: 202605-011359
+Desserts|Cupcake|5.50|Medium|x1
+Snacks|Cheetos|2.50|Large|x1
+Desserts|Coffee Cake|12.00|Large|x1
+Desserts|Coffee Cake|7.50|Small|x1
+--------====[[[[( RECEIPT )]]]]====--------
+Total Cost is: 27.5
+User checkout at: 202605-011912
+-------------=================-------------
+--------====[[[[( RECEIPT )]]]]====--------
+Desserts|Cupcake|8.00|Large|x1
+Total Cost is: $8.0
+User checkout at: 202605-012144
+-------------=================-------------

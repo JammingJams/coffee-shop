@@ -624,7 +624,8 @@ public class MainMenu {
         double totalAmount = shoppingCart.getCart().stream().mapToDouble(p -> p.getPrice()).sum();
 
         while (isUserInLoop) {
-            System.out.println("Total Amount Is: " + totalAmount);
+            System.out.println("====----- Desserts Selection Screen -----====");
+            System.out.println("Total Amount Is: $" + totalAmount);
             System.out.print("Do you want to checkout (Y/N)\nType Here:");
             switch (sc.nextLine().trim().toLowerCase()) {
                 case "n" -> isUserInLoop = false;

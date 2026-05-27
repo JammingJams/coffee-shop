@@ -141,17 +141,22 @@ public class InventoryLogger {
     public static void receiptWriter(ShoppingCart userCart) {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/Reciept.txt", true));
+            bufferedWriter.write("--------====[[[[( RECEIPT )]]]]====--------");
+            bufferedWriter.newLine();
 
             for (Product p : userCart.getCart()) {
                 String productDescription = String.valueOf(p);
                 bufferedWriter.write(productDescription);
                 bufferedWriter.newLine();
             }
-            String checkoutMessage = "Total Cost is: " +
+            String checkoutMessage = "Total Cost is: $" +
                     userCart.getCart().stream().mapToDouble(p -> p.getPrice()).sum()
                     + "\nUser checkout at: " + log.logDateAndTime();
 
             bufferedWriter.write(checkoutMessage);
+            bufferedWriter.newLine();
+
+            bufferedWriter.write("-------------=================-------------");
             bufferedWriter.newLine();
 
             bufferedWriter.close();

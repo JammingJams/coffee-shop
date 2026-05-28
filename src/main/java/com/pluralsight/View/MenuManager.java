@@ -20,19 +20,72 @@ public class MenuManager {
     public static ShoppingCart shoppingCart = new ShoppingCart();
     public static HashMap<String, Product> coffeeShopInventory = Display.coffeeShopInventory;
 
-    //Coffee Lists
-    public static Map<String, String> coffeeOptions = Map.of("1", "Cappuccino","2","Latte",
+    //Coffee Maps
+    private static final Map<String, String> coffeeOptions = Map.of("1", "Cappuccino","2","Latte",
             "3","Espresso","4","Americano","5","Mocha");
-    public static Map<String, Coffee.CoffeeType> coffeeTypeList =
+    private static final Map<String, Coffee.CoffeeType> coffeeTypeList =
             Map.of("cappuccino", Coffee.CoffeeType.CAPPUCCINO,"latte",
             Coffee.CoffeeType.LATTE,"espresso", Coffee.CoffeeType.ESPRESSO,"americano",
             Coffee.CoffeeType.AMERICANO,"mocha", Coffee.CoffeeType.AMERICANO);
 
-    //Sorted Tea options
-    private static Map<String, String> teaOptions = Map.of(
+    //Tea Maps
+    private static final Map<String, String> teaOptions = Map.of(
             "1", "Ube", "2", "Green", "3", "Boba");
-    private static Map<String, Tea.TeaType> teaTypeList = Map.of(
+    private static final Map<String, Tea.TeaType> teaTypeList = Map.of(
             "ube", Tea.TeaType.UBE, "green", Tea.TeaType.GREEN, "boba", Tea.TeaType.BOBA);
+
+    //BreakfastSandwiches Maps
+    private static final Map<String, String> sandwichOptions = Map.of(
+            "1","Bacon, Egg, Cheese",
+            "2", "Sausage, Egg, Cheese",
+            "3", "Ham, Swish, Pretzel Sliders",
+            "4", "Breakfast Grilled Cheese");
+
+    private static final Map<String, BreakfastSandwiches.SandwichTypes> sandwichTypeList = Map.of(
+            "bacon, egg, cheese", BreakfastSandwiches.SandwichTypes.BACONEGGCHEESE,
+            "sausage, egg, cheese", BreakfastSandwiches.SandwichTypes.SAUSAGUEEGGCHEESE,
+            "ham, swish, pretzel sliders", BreakfastSandwiches.SandwichTypes.HAMSWISHPRETEZELSLIDERS,
+            "breakfast grilled cheese", BreakfastSandwiches.SandwichTypes.BREAKFASTGRILLEDCHEESE);
+
+    //BakedGoods Maps
+    private static final Map<String, String> bakedGoodsOptions = Map.of(
+            "1", "English Muffins",
+            "2", "Croissant",
+            "3", "Bagel",
+            "4", "Toast");
+
+    private static final Map<String, BakedGoods.BakedGoodsType> bakedGoodsType = Map.of(
+            "english muffins", BakedGoods.BakedGoodsType.ENGLISHMUFFINS,
+            "croissant", BakedGoods.BakedGoodsType.CROISSANTS,
+            "bagel", BakedGoods.BakedGoodsType.BAGELS,
+            "toast", BakedGoods.BakedGoodsType.TOAST);
+
+    //Snacks Maps
+    private static final Map<String, String> snackOptions = Map.of(
+            "1", "Doritos",
+            "2", "Cheetos",
+            "3", "Peanuts",
+            "4", "Health Bars");
+
+    private static final Map<String, Snacks.SnackType> snackTypeList = Map.of(
+            "doritos", Snacks.SnackType.DORITOS,
+            "cheetos", Snacks.SnackType.CHEETOS,
+            "peanuts", Snacks.SnackType.PEANUTS,
+            "health bars", Snacks.SnackType.HEALTHBARS
+    );
+
+    //Desserts Maps
+    private static final Map<String, String> dessertOptions = Map.of(
+            "1", "Pumpkin Pie",
+            "2", "Cupcake",
+            "3", "Coffee Cake",
+            "4", "Ice Cream");
+
+    private static final Map<String, Desserts.DessertType> dessertTypeList = Map.of(
+            "pumpkin pie", Desserts.DessertType.PUMPKINPIE,
+            "cupcake", Desserts.DessertType.CUPCAKE,
+            "coffee cake", Desserts.DessertType.COFFEECAKE,
+            "ice cream", Desserts.DessertType.ICECREAM);
 
     public static Product addCoffeeProcess() {
         TreeMap<String, String> sortedCoffeeOptions = new TreeMap<>(coffeeOptions);
@@ -60,10 +113,7 @@ public class MenuManager {
             String userInput = sc.nextLine().trim();
             userChoice = sortedCoffeeOptions.get(userInput);
 
-            if (userInput.equalsIgnoreCase("6")) {
-                isUserInMenu = false;
-                return null;
-            }
+            if (userInput.equalsIgnoreCase("6")) {return null;}
 
             if (userChoice == null) {
                 System.out.println("Invalid user input");
@@ -130,10 +180,7 @@ public class MenuManager {
             String userInput = sc.nextLine().trim();
             userChoice = sortedTeaOptions.get(userInput);
 
-            if (userInput.equalsIgnoreCase("6")) {
-                isUserInMenu = false;
-                return null;
-            }
+            if (userInput.equalsIgnoreCase("6")) {return null;}
 
             if (userChoice == null) {
                 System.out.println("Invalid user input");
@@ -148,21 +195,16 @@ public class MenuManager {
             if (isUserInMenu&&!invalidInput) {
 
                 Tea coffee = new Tea("Tea", 0, size, 1);
-                switch (userChoice.toLowerCase()) {
-                    case "ube" -> {
-                        coffee.setTeaType(Tea.TeaType.UBE);
-                        largeMediumSmallPrice = Tea.TeaType.UBE.getSmallMediumLargePrices();
-                    }
-                    case "green" -> {
-                        coffee.setTeaType(Tea.TeaType.GREEN);
-                        largeMediumSmallPrice = Tea.TeaType.GREEN.getSmallMediumLargePrices();
-                    }
-                    case "boba" -> {
-                        coffee.setTeaType(Tea.TeaType.BOBA);
-                        largeMediumSmallPrice = Tea.TeaType.BOBA.getSmallMediumLargePrices();
-                    }
-                    default -> System.out.println("Tea type does not exist");
+                Tea.TeaType type = teaTypeList.get(userChoice.toLowerCase());
+
+                if (type == null) {
+                    System.out.println("Coffee Type doesn't exist");
+                    return null;
                 }
+
+                coffee.setTeaType(type);
+                largeMediumSmallPrice = type.getSmallMediumLargePrices();
+
                 String parsedItemName = coffee.getTeaTypeName().replaceAll("\\s+","")
                         .replaceAll(",","").replaceAll("&","");
                 String itemKey = "Tea|" + parsedItemName;
@@ -173,7 +215,6 @@ public class MenuManager {
                 selectAddInProcess(coffee);
 
                 return coffee;
-                //isUserInMenu = false;
             }
 
         }
@@ -181,6 +222,7 @@ public class MenuManager {
     }
 
     public static Product addBreakfastSandwiches() {
+        TreeMap<String, String> breakfastSandwichOptions = new TreeMap<>(sandwichOptions);
         boolean isUserInMenu = true;
         String userChoice = "", size = "";
         double[] largeMediumSmallPrice = {0,0,0};
@@ -190,48 +232,46 @@ public class MenuManager {
 
             System.out.println("====----- Sandwich Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
-            System.out.print("(1) -> Add Bacon, Egg, & Cheese Sandwich\n" +
-                    "(2) -> Add Sausage, Egg, & Cheese Sandwich\n" +
-                    "(3) -> Add Ham, Swish, & Pretzel Sliders\n" +
-                    "(4) -> Add Breakfast Grilled Cheese\n" +
-                    "(5) -> Exit Back to Home\n" +
-                    "Type Here: ");
+            for (Map.Entry<String, String> entry : breakfastSandwichOptions.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
 
-            switch (sc.nextLine().trim()) {
-                case "1" -> userChoice = "Bacon, Egg, Cheese";
-                case "2" -> userChoice = "Sausage, Egg, Cheese";
-                case "3" -> userChoice = "Ham, Swish, Pretzel Sliders";
-                case "4" -> userChoice = "Breakfast Grilled Cheese";
-                case "5" -> isUserInMenu = false;
-                default -> {
-                    System.out.println("Invalid user input!");
-                    invalidInput = true;
-                }
+                boolean isItemAvailable = checkItemAvailability(value);
+
+                if (isItemAvailable) {System.out.printf("(%s) -> Add %s\n", key, value);}
+                else {System.out.printf("[%s Unavailable]\n", value);}
+            }
+            System.out.print("(6) -> Exit Back to Home\nType Here: ");
+
+            String userInput = sc.nextLine().trim();
+            userChoice = breakfastSandwichOptions.get(userInput);
+
+            if (userInput.equalsIgnoreCase("6")) {return null;}
+
+            if (userChoice == null) {
+                System.out.println("Invalid user input");
+                invalidInput = true;
+            }
+
+            else if (!checkItemAvailability(userChoice)) {
+                System.out.println(userChoice + " is unavailable");
+                invalidInput = true;
             }
 
             if (isUserInMenu&&!invalidInput) {
 
                 BreakfastSandwiches breakfastSandwiches = new BreakfastSandwiches("BreakfastSandwiches",
                         0, "Small", 1);
-                switch (userChoice.toLowerCase()) {
-                    case "bacon, egg, cheese" -> {
-                        breakfastSandwiches.setBreakfastSandwich(BreakfastSandwiches.SandwichTypes.BACONEGGCHEESE);
-                        largeMediumSmallPrice = BreakfastSandwiches.SandwichTypes.BACONEGGCHEESE.getSmallMediumLargePrice();
-                    }
-                    case "sausage, egg, cheese" -> {
-                        breakfastSandwiches.setBreakfastSandwich(BreakfastSandwiches.SandwichTypes.SAUSAGUEEGGCHEESE);
-                        largeMediumSmallPrice = BreakfastSandwiches.SandwichTypes.SAUSAGUEEGGCHEESE.getSmallMediumLargePrice();
-                    }
-                    case "ham, swish, pretzel sliders" -> {
-                        breakfastSandwiches.setBreakfastSandwich(BreakfastSandwiches.SandwichTypes.HAMSWISHPRETEZELSLIDERS);
-                        largeMediumSmallPrice = BreakfastSandwiches.SandwichTypes.HAMSWISHPRETEZELSLIDERS.getSmallMediumLargePrice();
-                    }
-                    case "breakfast grilled cheese" -> {
-                        breakfastSandwiches.setBreakfastSandwich(BreakfastSandwiches.SandwichTypes.BREAKFASTGRILLEDCHEESE);
-                        largeMediumSmallPrice = BreakfastSandwiches.SandwichTypes.BREAKFASTGRILLEDCHEESE.getSmallMediumLargePrice();
-                    }
-                    default -> System.out.println("Coffee type does not exist");
+                BreakfastSandwiches.SandwichTypes type = sandwichTypeList.get(userChoice.toLowerCase());
+
+                if (type == null) {
+                    System.out.println("Coffee Type doesn't exist");
+                    return null;
                 }
+
+                breakfastSandwiches.setBreakfastSandwich(type);
+                largeMediumSmallPrice = type.getSmallMediumLargePrice();
+
                 String parsedItemName = breakfastSandwiches.getSandwichName().replaceAll("\\s+","")
                         .replaceAll(",","").replaceAll("&","");
                 String itemKey = "BreakfastSandwiches|" + parsedItemName;
@@ -253,6 +293,7 @@ public class MenuManager {
     }
 
     public static Product addBakedGoods() {
+        TreeMap<String, String> bakedGoodOptions = new TreeMap<>(bakedGoodsOptions);
         boolean isUserInMenu = true;
         String userChoice = "", size = "";
         double[] largeMediumSmallPrice = {0,0,0};
@@ -262,48 +303,46 @@ public class MenuManager {
 
             System.out.println("====----- Baked Goods Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
-            System.out.print("(1) -> Add English Muffins\n" +
-                    "(2) -> Add Croissants\n" +
-                    "(3) -> Add Bagels\n" +
-                    "(4) -> Add Toast\n" +
-                    "(5) -> Exit Back to Home\n" +
-                    "Type Here: ");
+            for (Map.Entry<String, String> entry : bakedGoodOptions.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
 
-            switch (sc.nextLine().trim()) {
-                case "1" -> userChoice = "English Muffins";
-                case "2" -> userChoice = "Croissant";
-                case "3" -> userChoice = "Bagel";
-                case "4" -> userChoice = "Toast";
-                case "5" -> isUserInMenu = false;
-                default -> {
-                    System.out.println("Invalid user input!");
-                    invalidInput = true;
-                }
+                boolean isItemAvailable = checkItemAvailability(value);
+
+                if (isItemAvailable) {System.out.printf("(%s) -> Add %s\n", key, value);}
+                else {System.out.printf("[%s Unavailable]\n", value);}
+            }
+            System.out.print("(6) -> Exit Back to Home\nType Here: ");
+
+            String userInput = sc.nextLine().trim();
+            userChoice = bakedGoodOptions.get(userInput);
+
+            if (userInput.equalsIgnoreCase("6")) {return null;}
+
+            if (userChoice == null) {
+                System.out.println("Invalid user input");
+                invalidInput = true;
+            }
+
+            else if (!checkItemAvailability(userChoice)) {
+                System.out.println(userChoice + " is unavailable");
+                invalidInput = true;
             }
 
             if (isUserInMenu&&!invalidInput) {
 
                 BakedGoods bakedGoods = new BakedGoods("BakedGoods",
                         0, "Small", 1);
-                switch (userChoice.toLowerCase()) {
-                    case "english muffins" -> {
-                        bakedGoods.setBakedGoods(BakedGoods.BakedGoodsType.ENGLISHMUFFINS);
-                        largeMediumSmallPrice = BakedGoods.BakedGoodsType.ENGLISHMUFFINS.getSmallMediumLargePrice();
-                    }
-                    case "croissant" -> {
-                        bakedGoods.setBakedGoods(BakedGoods.BakedGoodsType.CROISSANTS);
-                        largeMediumSmallPrice = BakedGoods.BakedGoodsType.CROISSANTS.getSmallMediumLargePrice();
-                    }
-                    case "bagel" -> {
-                        bakedGoods.setBakedGoods(BakedGoods.BakedGoodsType.BAGELS);
-                        largeMediumSmallPrice = BakedGoods.BakedGoodsType.BAGELS.getSmallMediumLargePrice();
-                    }
-                    case "toast" -> {
-                        bakedGoods.setBakedGoods(BakedGoods.BakedGoodsType.TOAST);
-                        largeMediumSmallPrice = BakedGoods.BakedGoodsType.TOAST.getSmallMediumLargePrice();
-                    }
-                    default -> System.out.println("BakedGoods type does not exist");
+                BakedGoods.BakedGoodsType type = bakedGoodsType.get(userChoice.toLowerCase());
+
+                if (type == null) {
+                    System.out.println("Coffee Type doesn't exist");
+                    return null;
                 }
+
+                bakedGoods.setBakedGoods(type);
+                largeMediumSmallPrice = type.getSmallMediumLargePrice();
+
                 String parsedItemName = bakedGoods.getSandwichName().replaceAll("\\s+","")
                         .replaceAll(",","").replaceAll("&","");
                 String itemKey = "BakedGoods|" + parsedItemName;
@@ -323,6 +362,7 @@ public class MenuManager {
     }
 
     public static Product addSnacksProcess() {
+        TreeMap<String, String> snackOption = new TreeMap<>(snackOptions);
         boolean isUserInMenu = true;
         String userChoice = "", size = "";
         double[] largeMediumSmallPrice = {0,0,0};
@@ -332,48 +372,46 @@ public class MenuManager {
 
             System.out.println("====----- Snacks Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
-            System.out.print("(1) -> Add Doritos\n" +
-                    "(2) -> Add Cheetos\n" +
-                    "(3) -> Add Peanuts\n" +
-                    "(4) -> Add Health Bars\n" +
-                    "(5) -> Exit Back to Home\n" +
-                    "Type Here: ");
+            for (Map.Entry<String, String> entry : snackOption.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
 
-            switch (sc.nextLine().trim()) {
-                case "1" -> userChoice = "Doritos";
-                case "2" -> userChoice = "Cheetos";
-                case "3" -> userChoice = "Peanuts";
-                case "4" -> userChoice = "Health Bars";
-                case "5" -> isUserInMenu = false;
-                default -> {
-                    System.out.println("Invalid user input!");
-                    invalidInput = true;
-                }
+                boolean isItemAvailable = checkItemAvailability(value);
+
+                if (isItemAvailable) {System.out.printf("(%s) -> Add %s\n", key, value);}
+                else {System.out.printf("[%s Unavailable]\n", value);}
+            }
+            System.out.print("(6) -> Exit Back to Home\nType Here: ");
+
+            String userInput = sc.nextLine().trim();
+            userChoice = snackOption.get(userInput);
+
+            if (userInput.equalsIgnoreCase("6")) {return null;}
+
+            if (userChoice == null) {
+                System.out.println("Invalid user input");
+                invalidInput = true;
+            }
+
+            else if (!checkItemAvailability(userChoice)) {
+                System.out.println(userChoice + " is unavailable");
+                invalidInput = true;
             }
 
             if (isUserInMenu&&!invalidInput) {
 
                 Snacks snacks = new Snacks("Snacks",
                         0, "Small", 1);
-                switch (userChoice.toLowerCase()) {
-                    case "doritos" -> {
-                        snacks.setSnackType(Snacks.SnackType.DORITOS);
-                        largeMediumSmallPrice = Snacks.SnackType.DORITOS.getSmallMediumLargePrice();
-                    }
-                    case "cheetos" -> {
-                        snacks.setSnackType(Snacks.SnackType.CHEETOS);
-                        largeMediumSmallPrice = Snacks.SnackType.CHEETOS.getSmallMediumLargePrice();
-                    }
-                    case "peanuts" -> {
-                        snacks.setSnackType(Snacks.SnackType.PEANUTS);
-                        largeMediumSmallPrice = Snacks.SnackType.PEANUTS.getSmallMediumLargePrice();
-                    }
-                    case "health bars" -> {
-                        snacks.setSnackType(Snacks.SnackType.HEALTHBARS);
-                        largeMediumSmallPrice = Snacks.SnackType.HEALTHBARS.getSmallMediumLargePrice();
-                    }
-                    default -> System.out.println("BakedGoods type does not exist");
+                Snacks.SnackType type = snackTypeList.get(userChoice.toLowerCase());
+
+                if (type == null) {
+                    System.out.println("Coffee Type doesn't exist");
+                    return null;
                 }
+
+                snacks.setSnackType(type);
+                largeMediumSmallPrice = type.getSmallMediumLargePrice();
+
                 String parsedItemName = snacks.getSnacksName().replaceAll("\\s+","")
                         .replaceAll(",","").replaceAll("&","");
                 String itemKey = "Snacks|" + parsedItemName;
@@ -384,10 +422,10 @@ public class MenuManager {
 
                 //This sets the price
                 snacks.setServingSize(size);
+
                 snacks.setPrice(snacks.getPrice() + snacks.getPriceForSize(size, largeMediumSmallPrice));
 
                 return snacks;
-                //isUserInMenu = false;
             }
 
         }
@@ -395,6 +433,7 @@ public class MenuManager {
     }
 
     public static Product addDessertsProcess() {
+        TreeMap<String, String> dessertOption = new TreeMap<>(dessertOptions);
         boolean isUserInMenu = true;
         String userChoice = "", size = "";
         double[] largeMediumSmallPrice = {0,0,0};
@@ -404,48 +443,46 @@ public class MenuManager {
 
             System.out.println("====----- Desserts Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
-            System.out.print("(1) -> Add Pumpkin Pie\n" +
-                    "(2) -> Add Cupcake\n" +
-                    "(3) -> Add Coffee Cake\n" +
-                    "(4) -> Add Ice Cream\n" +
-                    "(5) -> Exit Back to Home\n" +
-                    "Type Here: ");
+            for (Map.Entry<String, String> entry : dessertOption.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
 
-            switch (sc.nextLine().trim()) {
-                case "1" -> userChoice = "Pumpkin Pie";
-                case "2" -> userChoice = "Cupcake";
-                case "3" -> userChoice = "Coffee Cake";
-                case "4" -> userChoice = "Ice Cream";
-                case "5" -> isUserInMenu = false;
-                default -> {
-                    System.out.println("Invalid user input!");
-                    invalidInput = true;
-                }
+                boolean isItemAvailable = checkItemAvailability(value);
+
+                if (isItemAvailable) {System.out.printf("(%s) -> Add %s\n", key, value);}
+                else {System.out.printf("[%s Unavailable]\n", value);}
+            }
+            System.out.print("(6) -> Exit Back to Home\nType Here: ");
+
+            String userInput = sc.nextLine().trim();
+            userChoice = dessertOption.get(userInput);
+
+            if (userInput.equalsIgnoreCase("6")) {return null;}
+
+            if (userChoice == null) {
+                System.out.println("Invalid user input");
+                invalidInput = true;
+            }
+
+            else if (!checkItemAvailability(userChoice)) {
+                System.out.println(userChoice + " is unavailable");
+                invalidInput = true;
             }
 
             if (isUserInMenu&&!invalidInput) {
 
                 Desserts desserts = new Desserts("Desserts",
                         0, "Small", 1);
-                switch (userChoice.toLowerCase()) {
-                    case "pumpkin pie" -> {
-                        desserts.setDesserts(Desserts.DessertType.PUMPKINPIE);
-                        largeMediumSmallPrice = Desserts.DessertType.PUMPKINPIE.getSmallMediumLargePrice();
-                    }
-                    case "cupcake" -> {
-                        desserts.setDesserts(Desserts.DessertType.CUPCAKE);
-                        largeMediumSmallPrice = Desserts.DessertType.CUPCAKE.getSmallMediumLargePrice();
-                    }
-                    case "coffee cake" -> {
-                        desserts.setDesserts(Desserts.DessertType.COFFEECAKE);
-                        largeMediumSmallPrice = Desserts.DessertType.COFFEECAKE.getSmallMediumLargePrice();
-                    }
-                    case "ice cream" -> {
-                        desserts.setDesserts(Desserts.DessertType.ICECREAM);
-                        largeMediumSmallPrice = Desserts.DessertType.ICECREAM.getSmallMediumLargePrice();
-                    }
-                    default -> System.out.println("BakedGoods type does not exist");
+                Desserts.DessertType type = dessertTypeList.get(userChoice.toLowerCase());
+
+                if (type == null) {
+                    System.out.println("Coffee Type doesn't exist");
+                    return null;
                 }
+
+                desserts.setDesserts(type);
+                largeMediumSmallPrice = type.getSmallMediumLargePrice();
+
                 String parsedItemName = desserts.getDessertsName().replaceAll("\\s+","")
                         .replaceAll(",","").replaceAll("&","");
                 String itemKey = "Desserts|" + parsedItemName;
@@ -455,7 +492,6 @@ public class MenuManager {
                 desserts.setPrice(desserts.getPrice() + desserts.getPriceForSize(size, largeMediumSmallPrice));
 
                 return desserts;
-                //isUserInMenu = false;
             }
 
         }
@@ -938,6 +974,9 @@ public class MenuManager {
 
     //We need to sort out the data to determine if an item is out of stock!
     public static boolean checkItemAvailability(String itemName) {
+        itemName = itemName.replaceAll("\\s+","")
+                .replaceAll(",","").replaceAll("&","");
+
         for (Map.Entry<String, Product> entry : coffeeShopInventory.entrySet()) {
             String key = entry.getKey();
             Product product = entry.getValue();

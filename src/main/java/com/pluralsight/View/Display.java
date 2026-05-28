@@ -230,11 +230,11 @@ public class Display {
     }
 
     public static void checkOutProcess() {
+        shoppingCart.getCart().removeIf(Objects::isNull);
         boolean isUserInLoop = true;
         double totalAmount = shoppingCart.getCart().stream().mapToDouble(p -> p.getPrice()).sum();
 
         while (isUserInLoop) {
-            shoppingCart.getCart().removeIf(Objects::isNull);
             System.out.println("====----- Checkout Screen -----====");
             System.out.println("Total Amount Is: $" + totalAmount);
             System.out.print("Do you want to checkout (Y/N)\nType Here:");

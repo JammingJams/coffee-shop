@@ -11,7 +11,6 @@ import com.pluralsight.Model.OtherItems.Desserts;
 import com.pluralsight.Model.OtherItems.Snacks;
 import com.pluralsight.Model.Product;
 import com.pluralsight.Model.ShoppingCart;
-import com.pluralsight.Model.SpecialityItems.SpecialCoffee;
 
 import java.util.*;
 
@@ -21,71 +20,34 @@ public class MenuManager {
     public static HashMap<String, Product> coffeeShopInventory = Display.coffeeShopInventory;
 
     //Coffee Maps
-    private static final Map<String, String> coffeeOptions = Map.of("1", "Cappuccino","2","Latte",
-            "3","Espresso","4","Americano","5","Mocha");
-    private static final Map<String, Coffee.CoffeeType> coffeeTypeList =
-            Map.of("cappuccino", Coffee.CoffeeType.CAPPUCCINO,"latte",
-            Coffee.CoffeeType.LATTE,"espresso", Coffee.CoffeeType.ESPRESSO,"americano",
-            Coffee.CoffeeType.AMERICANO,"mocha", Coffee.CoffeeType.AMERICANO);
+    private static final Map<String, String> coffeeOptions = ListStorage.coffeeOptions;
+    private static final Map<String, Coffee.CoffeeType> coffeeTypeList = ListStorage.coffeeTypeList;
 
     //Tea Maps
-    private static final Map<String, String> teaOptions = Map.of(
-            "1", "Ube", "2", "Green", "3", "Boba");
-    private static final Map<String, Tea.TeaType> teaTypeList = Map.of(
-            "ube", Tea.TeaType.UBE, "green", Tea.TeaType.GREEN, "boba", Tea.TeaType.BOBA);
+    private static final Map<String, String> teaOptions = ListStorage.teaOptions;
+    private static final Map<String, Tea.TeaType> teaTypeList = ListStorage.teaTypeList;
 
     //BreakfastSandwiches Maps
-    private static final Map<String, String> sandwichOptions = Map.of(
-            "1","Bacon, Egg, Cheese",
-            "2", "Sausage, Egg, Cheese",
-            "3", "Ham, Swish, Pretzel Sliders",
-            "4", "Breakfast Grilled Cheese");
-
-    private static final Map<String, BreakfastSandwiches.SandwichTypes> sandwichTypeList = Map.of(
-            "bacon, egg, cheese", BreakfastSandwiches.SandwichTypes.BACONEGGCHEESE,
-            "sausage, egg, cheese", BreakfastSandwiches.SandwichTypes.SAUSAGUEEGGCHEESE,
-            "ham, swish, pretzel sliders", BreakfastSandwiches.SandwichTypes.HAMSWISHPRETEZELSLIDERS,
-            "breakfast grilled cheese", BreakfastSandwiches.SandwichTypes.BREAKFASTGRILLEDCHEESE);
+    private static final Map<String, String> sandwichOptions = ListStorage.sandwichOptions;
+    private static final Map<String, BreakfastSandwiches.SandwichTypes> sandwichTypeList = ListStorage.sandwichTypeList;
 
     //BakedGoods Maps
-    private static final Map<String, String> bakedGoodsOptions = Map.of(
-            "1", "English Muffins",
-            "2", "Croissant",
-            "3", "Bagel",
-            "4", "Toast");
-
-    private static final Map<String, BakedGoods.BakedGoodsType> bakedGoodsType = Map.of(
-            "english muffins", BakedGoods.BakedGoodsType.ENGLISHMUFFINS,
-            "croissant", BakedGoods.BakedGoodsType.CROISSANTS,
-            "bagel", BakedGoods.BakedGoodsType.BAGELS,
-            "toast", BakedGoods.BakedGoodsType.TOAST);
-
+    private static final Map<String, String> bakedGoodsOptions = ListStorage.bakedGoodsOptions;
+    private static final Map<String, BakedGoods.BakedGoodsType> bakedGoodsType = ListStorage.bakedGoodsType;
     //Snacks Maps
-    private static final Map<String, String> snackOptions = Map.of(
-            "1", "Doritos",
-            "2", "Cheetos",
-            "3", "Peanuts",
-            "4", "Health Bars");
-
-    private static final Map<String, Snacks.SnackType> snackTypeList = Map.of(
-            "doritos", Snacks.SnackType.DORITOS,
-            "cheetos", Snacks.SnackType.CHEETOS,
-            "peanuts", Snacks.SnackType.PEANUTS,
-            "health bars", Snacks.SnackType.HEALTHBARS
-    );
+    private static final Map<String, String> snackOptions = ListStorage.snackOptions;
+    private static final Map<String, Snacks.SnackType> snackTypeList = ListStorage.snackTypeList;
 
     //Desserts Maps
-    private static final Map<String, String> dessertOptions = Map.of(
-            "1", "Pumpkin Pie",
-            "2", "Cupcake",
-            "3", "Coffee Cake",
-            "4", "Ice Cream");
+    private static final Map<String, String> dessertOptions = ListStorage.dessertOptions;
+    private static final Map<String, Desserts.DessertType> dessertTypeList = ListStorage.dessertTypeList;
 
-    private static final Map<String, Desserts.DessertType> dessertTypeList = Map.of(
-            "pumpkin pie", Desserts.DessertType.PUMPKINPIE,
-            "cupcake", Desserts.DessertType.CUPCAKE,
-            "coffee cake", Desserts.DessertType.COFFEECAKE,
-            "ice cream", Desserts.DessertType.ICECREAM);
+    //AddIn Maps
+    private static final Map<String, AddIn.Sweeteners> sweetenerMap = ListStorage.sweetenerMap;
+    private static final Map<String, AddIn.Creamers> creamerMap = ListStorage.creamerMap;
+    private static final Map<String, AddIn.Spices> spiceMap = ListStorage.spiceMap;
+    private static final Map<String, AddIn.Flavorings> flavoringMap = ListStorage.flavoringMap;
+    private static final Map<String, AddIn.DessertStyle> dessertStyleMap = ListStorage.dessertStyleMap;
 
     public static Product addCoffeeProcess() {
         TreeMap<String, String> sortedCoffeeOptions = new TreeMap<>(coffeeOptions);
@@ -627,6 +589,7 @@ public class MenuManager {
     public static void addSweetenerProcess(Product coffee, String switcher) {
         Coffee test = new Coffee("",1,"",1);
         boolean isUserInMenu = true;
+        String input = "";
 
         while (isUserInMenu) {
 
@@ -642,62 +605,30 @@ public class MenuManager {
                     "(5) -> Exit AddIn Menu\n" +
                     "Type Here: ", switcher, switcher, switcher, switcher);
 
-            if (coffee instanceof Coffee) {
+            switch (sc.nextLine().trim()) {
 
-                if (switcher.equalsIgnoreCase("Add")) {
-                    switch (sc.nextLine().trim()) {
+                case "1" -> input = "1";
+                case "2" -> input = "2";
+                case "3" -> input = "3";
+                case "4" -> input = "4";
+                case "5" -> isUserInMenu = false;
+            }
+            if (!isUserInMenu) {continue;}
 
-                        case "1" -> ((Coffee) coffee).add(AddIn.Sweeteners.SUGAR);
-                        case "2" -> ((Coffee) coffee).add(AddIn.Sweeteners.HONEY);
-                        case "3" -> ((Coffee) coffee).add(AddIn.Sweeteners.STEVIA);
-                        case "4" -> ((Coffee) coffee).add(AddIn.Sweeteners.SYRUP);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-                else {
-                    switch (sc.nextLine().trim()) {
+            AddIn.Sweeteners selected = sweetenerMap.get(input);
 
-                        case "1" -> ((Coffee) coffee).remove(AddIn.Sweeteners.SUGAR);
-                        case "2" -> ((Coffee) coffee).remove(AddIn.Sweeteners.HONEY);
-                        case "3" -> ((Coffee) coffee).remove(AddIn.Sweeteners.STEVIA);
-                        case "4" -> ((Coffee) coffee).remove(AddIn.Sweeteners.SYRUP);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
+            if (selected == null) {
+                System.out.println("Invalid user input!");
+                continue;
             }
 
-            else if (coffee instanceof Tea) {
-
-                if (switcher.equalsIgnoreCase("Add")) {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Tea) coffee).add(AddIn.Sweeteners.SUGAR);
-                        case "2" -> ((Tea) coffee).add(AddIn.Sweeteners.HONEY);
-                        case "3" -> ((Tea) coffee).add(AddIn.Sweeteners.STEVIA);
-                        case "4" -> ((Tea) coffee).add(AddIn.Sweeteners.SYRUP);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-
-                else {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Tea) coffee).remove(AddIn.Sweeteners.SUGAR);
-                        case "2" -> ((Tea) coffee).remove(AddIn.Sweeteners.HONEY);
-                        case "3" -> ((Tea) coffee).remove(AddIn.Sweeteners.STEVIA);
-                        case "4" -> ((Tea) coffee).remove(AddIn.Sweeteners.SYRUP);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-            }
-
+            applyAddOrRemoveAddIn(coffee, selected, switcher);
         }
     }
 
     public static void addCreamersProcess(Product coffee, String switcher) {
         Coffee test = new Coffee("",1,"",1);
+        String input = "";
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
@@ -716,63 +647,31 @@ public class MenuManager {
                     "(6) -> Exit AddIn Menu\n" +
                     "Type Here: ", switcher, switcher, switcher, switcher, switcher);
 
-            if (coffee instanceof Coffee) {
+            switch (sc.nextLine().trim()) {
 
-                if (switcher.equalsIgnoreCase("Add")) {
+                case "1" -> input = "1";
+                case "2" -> input = "2";
+                case "3" -> input = "3";
+                case "4" -> input = "4";
+                case "5" -> input = "5";
+                case "6" -> isUserInMenu = false;
+            }
+            if (!isUserInMenu) {continue;}
 
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Coffee) coffee).add(AddIn.Creamers.MILK);
-                        case "2" -> ((Coffee) coffee).add(AddIn.Creamers.BUTTER);
-                        case "3" -> ((Coffee) coffee).add(AddIn.Creamers.ALMONDMILK);
-                        case "4" -> ((Coffee) coffee).add(AddIn.Creamers.COCONUTOIL);
-                        case "5" -> ((Coffee) coffee).add(AddIn.Creamers.OATMILK);
-                        case "6" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-                else{
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Coffee) coffee).remove(AddIn.Creamers.MILK);
-                        case "2" -> ((Coffee) coffee).remove(AddIn.Creamers.BUTTER);
-                        case "3" -> ((Coffee) coffee).remove(AddIn.Creamers.ALMONDMILK);
-                        case "4" -> ((Coffee) coffee).remove(AddIn.Creamers.COCONUTOIL);
-                        case "5" -> ((Coffee) coffee).remove(AddIn.Creamers.OATMILK);
-                        case "6" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
+            AddIn.Creamers selected = creamerMap.get(input);
+
+            if (selected == null) {
+                System.out.println("Invalid user input!");
+                continue;
             }
 
-            else if (coffee instanceof Tea) {
-
-                if (switcher.equalsIgnoreCase("Add")) {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Tea) coffee).add(AddIn.Creamers.MILK);
-                        case "2" -> ((Tea) coffee).add(AddIn.Creamers.BUTTER);
-                        case "3" -> ((Tea) coffee).add(AddIn.Creamers.ALMONDMILK);
-                        case "4" -> ((Tea) coffee).add(AddIn.Creamers.COCONUTOIL);
-                        case "5" -> ((Tea) coffee).add(AddIn.Creamers.OATMILK);
-                        case "6" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-                else {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Tea) coffee).remove(AddIn.Creamers.MILK);
-                        case "2" -> ((Tea) coffee).remove(AddIn.Creamers.BUTTER);
-                        case "3" -> ((Tea) coffee).remove(AddIn.Creamers.ALMONDMILK);
-                        case "4" -> ((Tea) coffee).remove(AddIn.Creamers.COCONUTOIL);
-                        case "5" -> ((Tea) coffee).remove(AddIn.Creamers.OATMILK);
-                        case "6" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-            }
+            applyAddOrRemoveAddIn(coffee, selected, switcher);
         }
     }
 
     public static void addSpicesProcess(Product coffee, String switcher) {
         Coffee test = new Coffee("",1,"",1);
+        String input = "";
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
@@ -789,60 +688,30 @@ public class MenuManager {
                     "(5) -> Exit AddIn Menu\n" +
                     "Type Here: ", switcher, switcher, switcher, switcher);
 
-            if (coffee instanceof Coffee) {
+            switch (sc.nextLine().trim()) {
 
-                if (switcher.equalsIgnoreCase("Add")) {
+                case "1" -> input = "1";
+                case "2" -> input = "2";
+                case "3" -> input = "3";
+                case "4" -> input = "4";
+                case "5" -> isUserInMenu = false;
+            }
+            if (!isUserInMenu) {continue;}
 
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Coffee) coffee).add(AddIn.Spices.CINNAMON);
-                        case "2" -> ((Coffee) coffee).add(AddIn.Spices.NUTMEG);
-                        case "3" -> ((Coffee) coffee).add(AddIn.Spices.CAYENNEPEPPER);
-                        case "4" -> ((Coffee) coffee).add(AddIn.Spices.CARDAMOM);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-                else {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Coffee) coffee).remove(AddIn.Spices.CINNAMON);
-                        case "2" -> ((Coffee) coffee).remove(AddIn.Spices.NUTMEG);
-                        case "3" -> ((Coffee) coffee).remove(AddIn.Spices.CAYENNEPEPPER);
-                        case "4" -> ((Coffee) coffee).remove(AddIn.Spices.CARDAMOM);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
+            AddIn.Spices selected = spiceMap.get(input);
+
+            if (selected == null) {
+                System.out.println("Invalid user input!");
+                continue;
             }
 
-            else if (coffee instanceof Tea) {
-
-                if (switcher.equalsIgnoreCase("Add")) {
-
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Tea) coffee).add(AddIn.Spices.CINNAMON);
-                        case "2" -> ((Tea) coffee).add(AddIn.Spices.NUTMEG);
-                        case "3" -> ((Tea) coffee).add(AddIn.Spices.CAYENNEPEPPER);
-                        case "4" -> ((Tea) coffee).add(AddIn.Spices.CARDAMOM);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-                else {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Tea) coffee).remove(AddIn.Spices.CINNAMON);
-                        case "2" -> ((Tea) coffee).remove(AddIn.Spices.NUTMEG);
-                        case "3" -> ((Tea) coffee).remove(AddIn.Spices.CAYENNEPEPPER);
-                        case "4" -> ((Tea) coffee).remove(AddIn.Spices.CARDAMOM);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-            }
+            applyAddOrRemoveAddIn(coffee, selected, switcher);
         }
     }
 
     public static void addFlavoringsProcess(Product coffee, String switcher) {
         Coffee test = new Coffee("",1,"",1);
+        String input = "";
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
@@ -857,55 +726,29 @@ public class MenuManager {
                     "(4) -> Exit AddIn Menu\n" +
                     "Type Here: ", switcher, switcher, switcher);
 
-            if (coffee instanceof Coffee) {
+            switch (sc.nextLine().trim()) {
 
-                if (switcher.equalsIgnoreCase("Add")) {
+                case "1" -> input = "1";
+                case "2" -> input = "2";
+                case "3" -> input = "3";
+                case "4" -> isUserInMenu = false;
+            }
+            if (!isUserInMenu) {continue;}
 
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Coffee) coffee).add(AddIn.Flavorings.VANILLAEXTRACT);
-                        case "2" -> ((Coffee) coffee).add(AddIn.Flavorings.CHOCOLATESHAVINGS);
-                        case "3" -> ((Coffee) coffee).add(AddIn.Flavorings.COCOANIBS);
-                        case "4" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-                else {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Coffee) coffee).remove(AddIn.Flavorings.VANILLAEXTRACT);
-                        case "2" -> ((Coffee) coffee).remove(AddIn.Flavorings.CHOCOLATESHAVINGS);
-                        case "3" -> ((Coffee) coffee).remove(AddIn.Flavorings.COCOANIBS);
-                        case "4" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
+            AddIn.Flavorings selected = flavoringMap.get(input);
+
+            if (selected == null) {
+                System.out.println("Invalid user input!");
+                continue;
             }
 
-            else if (coffee instanceof Tea) {
-
-                if (switcher.equalsIgnoreCase("Add")) {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Tea) coffee).add(AddIn.Flavorings.VANILLAEXTRACT);
-                        case "2" -> ((Tea) coffee).add(AddIn.Flavorings.CHOCOLATESHAVINGS);
-                        case "3" -> ((Tea) coffee).add(AddIn.Flavorings.COCOANIBS);
-                        case "4" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-                else {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Tea) coffee).remove(AddIn.Flavorings.VANILLAEXTRACT);
-                        case "2" -> ((Tea) coffee).remove(AddIn.Flavorings.CHOCOLATESHAVINGS);
-                        case "3" -> ((Tea) coffee).remove(AddIn.Flavorings.COCOANIBS);
-                        case "4" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-            }
+            applyAddOrRemoveAddIn(coffee, selected, switcher);
         }
     }
 
     public static void addDesertStyleProcess(Product coffee, String switcher) {
         Coffee test = new Coffee("",1,"",1);
+        String input = "";
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
@@ -922,53 +765,24 @@ public class MenuManager {
                     "(5) -> Exit AddIn Menu\n" +
                     "Type Here: ", switcher, switcher, switcher, switcher);
 
-            if (coffee instanceof Coffee) {
+            switch (sc.nextLine().trim()) {
 
-                if (switcher.equalsIgnoreCase("Add")) {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Coffee) coffee).add(AddIn.DessertStyle.ICECREAM);
-                        case "2" -> ((Coffee) coffee).add(AddIn.DessertStyle.CONDENSEDMILK);
-                        case "3" -> ((Coffee) coffee).add(AddIn.DessertStyle.WHIPPEDCREAM);
-                        case "4" -> ((Coffee) coffee).add(AddIn.DessertStyle.BROWNIE);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-                else {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Coffee) coffee).remove(AddIn.DessertStyle.ICECREAM);
-                        case "2" -> ((Coffee) coffee).remove(AddIn.DessertStyle.CONDENSEDMILK);
-                        case "3" -> ((Coffee) coffee).remove(AddIn.DessertStyle.WHIPPEDCREAM);
-                        case "4" -> ((Coffee) coffee).remove(AddIn.DessertStyle.BROWNIE);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
+                case "1" -> input = "1";
+                case "2" -> input = "2";
+                case "3" -> input = "3";
+                case "4" -> input = "4";
+                case "5" -> isUserInMenu = false;
+            }
+            if (!isUserInMenu) {continue;}
+
+            AddIn.DessertStyle selected = dessertStyleMap.get(input);
+
+            if (selected == null) {
+                System.out.println("Invalid user input!");
+                continue;
             }
 
-            else if (coffee instanceof Tea) {
-
-                if (switcher.equalsIgnoreCase("Add")) {
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Tea) coffee).add(AddIn.DessertStyle.ICECREAM);
-                        case "2" -> ((Tea) coffee).add(AddIn.DessertStyle.CONDENSEDMILK);
-                        case "3" -> ((Tea) coffee).add(AddIn.DessertStyle.WHIPPEDCREAM);
-                        case "4" -> ((Tea) coffee).add(AddIn.DessertStyle.BROWNIE);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-                else{
-                    switch (sc.nextLine().trim()) {
-                        case "1" -> ((Tea) coffee).remove(AddIn.DessertStyle.ICECREAM);
-                        case "2" -> ((Tea) coffee).remove(AddIn.DessertStyle.CONDENSEDMILK);
-                        case "3" -> ((Tea) coffee).remove(AddIn.DessertStyle.WHIPPEDCREAM);
-                        case "4" -> ((Tea) coffee).remove(AddIn.DessertStyle.BROWNIE);
-                        case "5" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
-                    }
-                }
-            }
+            applyAddOrRemoveAddIn(coffee, selected, switcher);
         }
     }
 
@@ -989,4 +803,23 @@ public class MenuManager {
         return false;
     }
 
+    private static void applyAddOrRemoveAddIn(Product product, AddIn addon, String switcher) {
+
+        if (product instanceof Coffee coffee) {
+
+            if (switcher.equalsIgnoreCase("Add")) {
+                coffee.add(addon);
+            } else {
+                coffee.remove(addon);
+            }
+
+        } else if (product instanceof Tea tea) {
+
+            if (switcher.equalsIgnoreCase("Add")) {
+                tea.add(addon);
+            } else {
+                tea.remove(addon);
+            }
+        }
+    }
 }

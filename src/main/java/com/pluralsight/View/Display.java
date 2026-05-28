@@ -2,23 +2,28 @@ package com.pluralsight.View;
 
 import com.pluralsight.Controller.InventoryLogger;
 import com.pluralsight.Interface.AddIn;
+import com.pluralsight.Model.Drinks.Coffee;
 import com.pluralsight.Model.Product;
 import com.pluralsight.Model.ShoppingCart;
 import com.pluralsight.Model.SpecialityItems.SpecialCoffee;
 
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
+
+import static com.pluralsight.View.MenuManager.checkItemAvailability;
 
 public class Display {
     public static Scanner sc = new Scanner(System.in);
     public static ShoppingCart shoppingCart = new ShoppingCart();
     public static HashMap<String, Product> coffeeShopInventory = InventoryLogger.getInventory();
+
+    private static final Map<String, String> specialCoffeeOptions = ListStorage.specialCoffeeOptions;
+    private static final Map<String, SpecialCoffee.SpecialCoffeeType > specialCoffeeTypeList = ListStorage.specialCoffeeTypeList;
+
     public static void runApp() {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Home Screen -----====");
             System.out.print("(1) -> New Order\n" +
                     "(2) -> Exit\n" +
@@ -37,7 +42,7 @@ public class Display {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Order Screen -----====");
             System.out.print("(1) -> Add Drink\n" +
                     "(2) -> Add Side Item\n" +
@@ -67,7 +72,7 @@ public class Display {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Drink Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
             System.out.print("(1) -> Coffee\n" +
@@ -94,7 +99,7 @@ public class Display {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Breakfast Item Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
             System.out.print("(1) -> Baked Goods\n" +
@@ -121,7 +126,7 @@ public class Display {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Order Screen -----====");
             System.out.print("(1) -> Add Snacks\n" +
                     "(2) -> Add Desserts\n" +
@@ -139,76 +144,58 @@ public class Display {
     }
 
     public static void addSpecialityItemProcess() {
+        TreeMap<String, String> sortedCoffeeOptions = new TreeMap<>(specialCoffeeOptions);
         boolean isUserInMenu = true;
         String userChoice = "", size = "";
         double[] largeMediumSmallPrice = {0, 0, 0};
 
         while (isUserInMenu) {
             boolean invalidInput = false;
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Special Coffee Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
-            System.out.print("(1) -> Add Birthday Blitz\n" +
-                    "(2) -> Add Carameltdown\n" +
-                    "(3) -> Add Choco Mucho\n" +
-                    "(4) -> Add Creamy's Delight\n" +
-                    "(5) -> Add Spice My Ice\n" +
-                    "(6) -> Exit Back to Home\n" +
-                    "Type Here: ");
+            for (Map.Entry<String, String> entry : sortedCoffeeOptions.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
 
-            switch (sc.nextLine().trim()) {
-                case "1" -> userChoice = "Birthday Blitz";
-                case "2" -> userChoice = "Carameltdown";
-                case "3" -> userChoice = "Choco Mucho";
-                case "4" -> userChoice = "Creamy's Delight";
-                case "5" -> userChoice = "Spice My Ice";
-                case "6" -> isUserInMenu = false;
-                default -> {
-                    System.out.println("Invalid user input!");
-                    invalidInput = true;
-                }
+                boolean isItemAvailable = checkItemAvailability(value);
+
+                if (isItemAvailable) {System.out.printf("(%s) -> Add %s\n", key, value);}
+                else {System.out.printf("[%s Unavailable]\n", value);}
+            }
+            System.out.print("(6) -> Exit Back to Home\nType Here: ");
+
+            String userInput = sc.nextLine().trim();
+            userChoice = sortedCoffeeOptions.get(userInput);
+
+            if (userInput.equalsIgnoreCase("6")) {isUserInMenu = false;}
+
+            if (userChoice == null) {
+                System.out.println("Invalid user input");
+                invalidInput = true;
+            }
+
+            else if (!checkItemAvailability(userChoice)) {
+                System.out.println(userChoice + " is unavailable");
+                invalidInput = true;
             }
 
             if (isUserInMenu && !invalidInput) {
 
                 SpecialCoffee coffee = new SpecialCoffee("SpecialCoffee", 0, "Small", 1);
-                switch (userChoice.toLowerCase()) {
-                    case "birthday blitz" -> {
-                        coffee.setCoffeeType(SpecialCoffee.SpecialCoffeeType.BIRTHDAYBLITZ);
-                        largeMediumSmallPrice = SpecialCoffee.SpecialCoffeeType.BIRTHDAYBLITZ.getSmallMediumLargePrice();
-                        coffee.add(AddIn.DessertStyle.WHIPPEDCREAM);
-                        coffee.add(AddIn.DessertStyle.ICECREAM);
-                    }
-                    case "carameltdown" -> {
-                        coffee.setCoffeeType(SpecialCoffee.SpecialCoffeeType.CARAMELTDOWN);
-                        largeMediumSmallPrice = SpecialCoffee.SpecialCoffeeType.CARAMELTDOWN.getSmallMediumLargePrice();
-                        coffee.add(AddIn.Sweeteners.SYRUP);
-                    }
-                    case "choco mucho" -> {
-                        coffee.setCoffeeType(SpecialCoffee.SpecialCoffeeType.CHOCOMUCHO);
-                        largeMediumSmallPrice = SpecialCoffee.SpecialCoffeeType.CHOCOMUCHO.getSmallMediumLargePrice();
-                        coffee.add(AddIn.DessertStyle.BROWNIE);
-                        coffee.add(AddIn.Flavorings.COCOANIBS);
-                        coffee.add(AddIn.Flavorings.CHOCOLATESHAVINGS);
-                    }
-                    case "creamy's delight" -> {
-                        coffee.setCoffeeType(SpecialCoffee.SpecialCoffeeType.CREAMYSDELIGHT);
-                        largeMediumSmallPrice = SpecialCoffee.SpecialCoffeeType.CREAMYSDELIGHT.getSmallMediumLargePrice();
-                        coffee.add(AddIn.Creamers.OATMILK);
-                        coffee.add(AddIn.Creamers.BUTTER);
-                    }
-                    case "spice my ice" -> {
-                        coffee.setCoffeeType(SpecialCoffee.SpecialCoffeeType.SPICEMYICE);
-                        largeMediumSmallPrice = SpecialCoffee.SpecialCoffeeType.SPICEMYICE.getSmallMediumLargePrice();
-                        coffee.add(AddIn.Spices.NUTMEG);
-                        coffee.add(AddIn.Spices.CAYENNEPEPPER);
-                    }
-                    default -> System.out.println("Coffee type does not exist");
+                SpecialCoffee.SpecialCoffeeType type = specialCoffeeTypeList.get(userChoice.toLowerCase());
+
+                if (type == null) {
+                    System.out.println("Coffee Type doesn't exist");
+                    continue;
                 }
+
+                coffee.setCoffeeType(type);
+                largeMediumSmallPrice = type.getSmallMediumLargePrice();
+
                 String parsedItemName = coffee.getCoffeeTypeName().replaceAll("\\s+", "")
                         .replaceAll(",", "").replaceAll("&", "");
                 String itemKey = "SpecialCoffee|" + parsedItemName;
-                System.out.println(largeMediumSmallPrice[0]);
 
                 size = sizeSelectionProcess(largeMediumSmallPrice, coffee.getPrice(), itemKey);
                 coffee.setServingSize(size);
@@ -233,8 +220,13 @@ public class Display {
         shoppingCart.getCart().removeIf(Objects::isNull);
         boolean isUserInLoop = true;
         double totalAmount = shoppingCart.getCart().stream().mapToDouble(p -> p.getPrice()).sum();
+        if (totalAmount == 0) {
+            System.out.println("Cart doesn't have any products...");
+            return;
+        }
 
         while (isUserInLoop) {
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Checkout Screen -----====");
             System.out.println("Total Amount Is: $" + totalAmount);
             System.out.print("Do you want to checkout (Y/N)\nType Here:");
@@ -266,7 +258,7 @@ public class Display {
         String userChoice = "";
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Size Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
             System.out.println(large ?
@@ -281,11 +273,8 @@ public class Display {
                 case "1" -> {
                     if (large) {
                         userChoice = "Large";
-                        System.out.println(itemName + "|Large");
                         int quantity = coffeeShopInventory.get(itemName + "|Large").getQuantity();
-                        System.out.println(quantity);
                         coffeeShopInventory.get(itemName + "|Large").setQuantity(quantity - 1);
-                        System.out.println(coffeeShopInventory.get(itemName + "|Large").getQuantity());
                     }
                     else {
                         System.out.println("Invalid user Input!");

@@ -91,3 +91,8 @@ Snacks|Doritos|0.50|Small|x1
 Total Cost is: $4.25
 User checkout at: 202605-031937
 -------------=================-------------
+--------====[[[[( RECEIPT )]]]]====--------
+Coffee|Cappuccino|22.25|Large|x1|Syrup|x3|Stevia|x1|Sugar|x5
+Total Cost is: $22.25
+User checkout at: 202605-042512
+-------------=================-------------

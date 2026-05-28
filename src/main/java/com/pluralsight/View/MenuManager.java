@@ -13,17 +13,29 @@ import com.pluralsight.Model.Product;
 import com.pluralsight.Model.ShoppingCart;
 import com.pluralsight.Model.SpecialityItems.SpecialCoffee;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class MenuManager {
     public static Scanner sc = new Scanner(System.in);
     public static ShoppingCart shoppingCart = new ShoppingCart();
-    public static HashMap<String, Product> coffeeShopInventory = InventoryLogger.getInventory();
+    public static HashMap<String, Product> coffeeShopInventory = Display.coffeeShopInventory;
+
+    //Coffee Lists
+    public static Map<String, String> coffeeOptions = Map.of("1", "Cappuccino","2","Latte",
+            "3","Espresso","4","Americano","5","Mocha");
+    public static Map<String, Coffee.CoffeeType> coffeeTypeList =
+            Map.of("cappuccino", Coffee.CoffeeType.CAPPUCCINO,"latte",
+            Coffee.CoffeeType.LATTE,"espresso", Coffee.CoffeeType.ESPRESSO,"americano",
+            Coffee.CoffeeType.AMERICANO,"mocha", Coffee.CoffeeType.AMERICANO);
+
+    //Sorted Tea options
+    private static Map<String, String> teaOptions = Map.of(
+            "1", "Ube", "2", "Green", "3", "Boba");
+    private static Map<String, Tea.TeaType> teaTypeList = Map.of(
+            "ube", Tea.TeaType.UBE, "green", Tea.TeaType.GREEN, "boba", Tea.TeaType.BOBA);
 
     public static Product addCoffeeProcess() {
+        TreeMap<String, String> sortedCoffeeOptions = new TreeMap<>(coffeeOptions);
         boolean isUserInMenu = true;
         String userChoice = "", size = "";
         double[] largeMediumSmallPrice = {0,0,0};
@@ -33,53 +45,48 @@ public class MenuManager {
 
             System.out.println("====----- Coffee Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
-            System.out.print("(1) -> Add Cappuccino\n" +
-                    "(2) -> Add Latte\n" +
-                    "(3) -> Add Espresso\n" +
-                    "(4) -> Add Americano\n" +
-                    "(5) -> Add Mocha\n" +
-                    "(6) -> Exit Back to Home\n" +
-                    "Type Here: ");
 
-            switch (sc.nextLine().trim()) {
-                case "1" -> userChoice = "Cappuccino";
-                case "2" -> userChoice = "Latte";
-                case "3" -> userChoice = "Espresso";
-                case "4" -> userChoice = "Americano";
-                case "5" -> userChoice = "Mocha";
-                case "6" -> isUserInMenu = false;
-                default -> {
-                    System.out.println("Invalid user input!");
-                    invalidInput = true;
-                }
+            for (Map.Entry<String, String> entry : sortedCoffeeOptions.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+
+                boolean isItemAvailable = checkItemAvailability(value);
+
+                if (isItemAvailable) {System.out.printf("(%s) -> Add %s\n", key, value);}
+                else {System.out.printf("[%s Unavailable]\n", value);}
+            }
+            System.out.print("(6) -> Exit Back to Home\nType Here: ");
+
+            String userInput = sc.nextLine().trim();
+            userChoice = sortedCoffeeOptions.get(userInput);
+
+            if (userInput.equalsIgnoreCase("6")) {
+                isUserInMenu = false;
+                return null;
+            }
+
+            if (userChoice == null) {
+                System.out.println("Invalid user input");
+                invalidInput = true;
+            }
+
+            else if (!checkItemAvailability(userChoice)) {
+                System.out.println(userChoice + " is unavailable");
+                invalidInput = true;
             }
 
             if (isUserInMenu&&!invalidInput) {
+                Coffee.CoffeeType type = coffeeTypeList.get(userChoice.toLowerCase());
+
+                if (type == null) {
+                    System.out.println("Coffee Type doesn't exist");
+                    return null;
+                }
 
                 Coffee coffee = new Coffee("Coffee", 0, "Small", 1);
-                switch (userChoice.toLowerCase()) {
-                    case "cappuccino" -> {
-                        coffee.setCoffeeType(Coffee.CoffeeType.CAPPUCCINO);
-                        largeMediumSmallPrice = Coffee.CoffeeType.CAPPUCCINO.getSmallMediumLargePrice();
-                    }
-                    case "latte" -> {
-                        coffee.setCoffeeType(Coffee.CoffeeType.LATTE);
-                        largeMediumSmallPrice = Coffee.CoffeeType.LATTE.getSmallMediumLargePrice();
-                    }
-                    case "espresso" -> {
-                        coffee.setCoffeeType(Coffee.CoffeeType.ESPRESSO);
-                        largeMediumSmallPrice = Coffee.CoffeeType.ESPRESSO.getSmallMediumLargePrice();
-                    }
-                    case "americano" -> {
-                        coffee.setCoffeeType(Coffee.CoffeeType.AMERICANO);
-                        largeMediumSmallPrice = Coffee.CoffeeType.AMERICANO.getSmallMediumLargePrice();
-                    }
-                    case "mocha" -> {
-                        coffee.setCoffeeType(Coffee.CoffeeType.MOCHA);
-                        largeMediumSmallPrice = Coffee.CoffeeType.MOCHA.getSmallMediumLargePrice();
-                    }
-                    default -> System.out.println("Coffee type does not exist");
-                }
+                coffee.setCoffeeType(type);
+                largeMediumSmallPrice = type.getSmallMediumLargePrice();
+
                 String parsedItemName = coffee.getCoffeeTypeName().replaceAll("\\s+","")
                         .replaceAll(",","").replaceAll("&","");
                 String itemKey = "Coffee|" + parsedItemName;
@@ -92,15 +99,14 @@ public class MenuManager {
 
                 shoppingCart.add(coffee);
                 return coffee;
-                //isUserInMenu = false;
             }
-
 
         }
         return null;
     }
 
     public static Product addTeaProcess() {
+        TreeMap<String, String> sortedTeaOptions = new TreeMap<>(teaOptions);
         boolean isUserInMenu = true;
         String userChoice = "", size = "";
         double[] largeMediumSmallPrice = {0,0,0};
@@ -110,21 +116,33 @@ public class MenuManager {
 
             System.out.println("====----- Tea Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
-            System.out.print("(1) -> Add Ube\n" +
-                    "(2) -> Add Green\n" +
-                    "(3) -> Add Boba\n" +
-                    "(4) -> Exit Back to Home\n" +
-                    "Type Here: ");
+            for (Map.Entry<String, String> entry : sortedTeaOptions.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
 
-            switch (sc.nextLine().trim()) {
-                case "1" -> userChoice = "Ube";
-                case "2" -> userChoice = "Green";
-                case "3" -> userChoice = "Boba";
-                case "4" -> isUserInMenu = false;
-                default -> {
-                    System.out.println("Invalid user input!");
-                    invalidInput = true;
-                }
+                boolean isItemAvailable = checkItemAvailability(value);
+
+                if (isItemAvailable) {System.out.printf("(%s) -> Add %s\n", key, value);}
+                else {System.out.printf("[%s Unavailable]\n", value);}
+            }
+            System.out.print("(6) -> Exit Back to Home\nType Here: ");
+
+            String userInput = sc.nextLine().trim();
+            userChoice = sortedTeaOptions.get(userInput);
+
+            if (userInput.equalsIgnoreCase("6")) {
+                isUserInMenu = false;
+                return null;
+            }
+
+            if (userChoice == null) {
+                System.out.println("Invalid user input");
+                invalidInput = true;
+            }
+
+            else if (!checkItemAvailability(userChoice)) {
+                System.out.println(userChoice + " is unavailable");
+                invalidInput = true;
             }
 
             if (isUserInMenu&&!invalidInput) {

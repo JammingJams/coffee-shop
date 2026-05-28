@@ -39,3 +39,40 @@ SpecialCoffee|Birthday Blitz|16.00|Small|x1|Sugar|x1|Honey|x2|Whipped Cream|x1|I
 Total Cost is: $51.5
 User checkout at: 202605-112450
 -------------=================-------------
+--------====[[[[( RECEIPT )]]]]====--------
+SpecialCoffee|Birthday Blitz|22.50|Large|x1|Almond Milk|x1|Milk|x1|Butter|x1|Ice Cream|x1|Coconut Oil|x1|Whipped Cream|x1
+Total Cost is: $22.5
+User checkout at: 202605-113842
+-------------=================-------------
+--------====[[[[( RECEIPT )]]]]====--------
+Snacks|Doritos|2.50|Large|x1
+SpecialCoffee|Birthday Blitz|21.00|Medium|x1|Stevia|x1|Whipped Cream|x1|Sugar|x1|Ice Cream|x1|Syrup|x1|Honey|x1
+SpecialCoffee|Choco Mucho|23.75|Large|x1|Brownie|x2|Condensed Milk|x1|Whipped Cream|x1|Chocolate Shavings|x1|Ice Cream|x1|Cocoa Nibs|x1
+Total Cost is: $47.25
+User checkout at: 202605-114523
+-------------=================-------------
+--------====[[[[( RECEIPT )]]]]====--------
+SpecialCoffee|Birthday Blitz|22.25|Large|x1|Stevia|x1|Whipped Cream|x1|Honey|x1|Ice Cream|x1|Syrup|x1
+SpecialCoffee|Birthday Blitz|21.00|Medium|x1|Sugar|x1|Stevia|x1|Whipped Cream|x1|Honey|x1|Ice Cream|x1|Syrup|x1
+Total Cost is: $43.25
+User checkout at: 202605-114956
+-------------=================-------------
+--------====[[[[( RECEIPT )]]]]====--------
+BakedGoods|Bagel|3.00|Large|x1
+Total Cost is: $3.0
+User checkout at: 202605-123328
+-------------=================-------------
+--------====[[[[( RECEIPT )]]]]====--------
+BreakfastSandwiches|Ham, Swish, Pretzel, & Sliders|10.50|Large|x1
+BreakfastSandwiches|Ham, Swish, Pretzel, & Sliders|9.50|Medium|x1
+BreakfastSandwiches|Ham, Swish, Pretzel, & Sliders|7.00|Small|x1
+Total Cost is: $27.0
+User checkout at: 202605-124145
+-------------=================-------------
+--------====[[[[( RECEIPT )]]]]====--------
+Snacks|Health Bars|3.00|Large|x1
+Snacks|Health Bars|1.75|Medium|x1
+Snacks|Health Bars|1.00|Small|x1
+Total Cost is: $5.75
+User checkout at: 202605-124731
+-------------=================-------------

@@ -80,11 +80,11 @@ public class BakedGoods extends Product implements AddRemoveExtraMeats {
             setPrice(b.getPrice() + getPriceForSize(getServingSize(), b.getSmallMediumLargePrice()));
         }
         else if (b == BakedGoodsType.BAGELS) {
-            setSandwichName("Bagels");
+            setSandwichName("Bagel");
             setPrice(b.getPrice() + getPriceForSize(getServingSize(), b.getSmallMediumLargePrice()));
         }
         else if (b == BakedGoodsType.CROISSANTS) {
-            setSandwichName("Croissants");
+            setSandwichName("Croissant");
             setPrice(b.getPrice() + getPriceForSize(getServingSize(), b.getSmallMediumLargePrice()));
         }
         else if (b == BakedGoodsType.TOAST) {

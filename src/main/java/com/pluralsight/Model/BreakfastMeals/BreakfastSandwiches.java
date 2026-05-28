@@ -88,7 +88,7 @@ public class BreakfastSandwiches extends Product implements AddRemoveExtraMeats 
             setPrice(s.getPrice() + getPriceForSize(getServingSize(), s.getSmallMediumLargePrice()));
         }
         else if (s == SandwichTypes.BREAKFASTGRILLEDCHEESE) {
-            setSandwichName("Grilled Cheese");
+            setSandwichName("Breakfast Grilled Cheese");
             setPrice(s.getPrice() + getPriceForSize(getServingSize(), s.getSmallMediumLargePrice()));
         }
 

@@ -7,6 +7,7 @@ import com.pluralsight.Model.ShoppingCart;
 import com.pluralsight.Model.SpecialityItems.SpecialCoffee;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Display {
@@ -76,11 +77,11 @@ public class Display {
 
             switch (sc.nextLine().trim()) {
                 case "1" -> {
-                    MenuManager.addCoffeeProcess();
+                    shoppingCart.add(MenuManager.addCoffeeProcess());
                     isUserInMenu = false;
                 }
                 case "2" -> {
-                    MenuManager.addTeaProcess();
+                    shoppingCart.add(MenuManager.addTeaProcess());
                     isUserInMenu = false;
                 }
                 case "3" -> isUserInMenu = false;
@@ -103,11 +104,11 @@ public class Display {
 
             switch (sc.nextLine().trim()) {
                 case "1" -> {
-                    MenuManager.addBakedGoods();
+                    shoppingCart.add(MenuManager.addBakedGoods());
                     isUserInMenu = false;
                 }
                 case "2" -> {
-                    MenuManager.addBreakfastSandwiches();
+                    shoppingCart.add(MenuManager.addBreakfastSandwiches());
                     isUserInMenu = false;
                 }
                 case "3" -> isUserInMenu = false;
@@ -128,8 +129,8 @@ public class Display {
                     "Type Here: ");
 
             switch (sc.nextLine().trim()) {
-                case "1" -> MenuManager.addSnacksProcess();
-                case "2" -> MenuManager.addDessertsProcess();
+                case "1" -> shoppingCart.add(MenuManager.addSnacksProcess());
+                case "2" -> shoppingCart.add(MenuManager.addDessertsProcess());
                 case "3" -> isUserInMenu = false;
                 default -> System.out.println("Invalid user input!");
             }
@@ -209,7 +210,7 @@ public class Display {
                 String itemKey = "SpecialCoffee|" + parsedItemName;
                 System.out.println(largeMediumSmallPrice[0]);
 
-                size = MenuManager.sizeSelectionProcess(largeMediumSmallPrice, coffee.getPrice(), itemKey);
+                size = sizeSelectionProcess(largeMediumSmallPrice, coffee.getPrice(), itemKey);
                 coffee.setServingSize(size);
                 coffee.setPrice(coffee.getPrice() + coffee.getPriceForSize(size, largeMediumSmallPrice));
 
@@ -224,6 +225,7 @@ public class Display {
         }
     }
     public static void viewCartProcess() {
+        shoppingCart.getCart().removeIf(Objects::isNull);
         shoppingCart.getCart().forEach(p -> System.out.println(p));
     }
 
@@ -232,6 +234,7 @@ public class Display {
         double totalAmount = shoppingCart.getCart().stream().mapToDouble(p -> p.getPrice()).sum();
 
         while (isUserInLoop) {
+            shoppingCart.getCart().removeIf(Objects::isNull);
             System.out.println("====----- Checkout Screen -----====");
             System.out.println("Total Amount Is: $" + totalAmount);
             System.out.print("Do you want to checkout (Y/N)\nType Here:");
@@ -240,7 +243,7 @@ public class Display {
                 case "y" -> {
                     InventoryLogger.receiptWriter(shoppingCart);
                     shoppingCart.getCart().clear();
-                    //Add a writer here
+                    InventoryLogger.inventoryWriter(coffeeShopInventory);
                     isUserInLoop = false;
                 }
                 default -> System.out.println("Invalid User input");
@@ -249,8 +252,71 @@ public class Display {
     }
 
     public static void cancelOrderProcess() {
+        shoppingCart.getCart().removeIf(Objects::isNull);
         shoppingCart.getCart().clear();
-        //Add a writer here
+        coffeeShopInventory = InventoryLogger.getInventory();
         System.out.println("Inventory CLEARED");
+    }
+
+    public static String sizeSelectionProcess(double[] variablePrices, double defaultPrice, String itemName) {
+        boolean isUserInMenu = true;
+        boolean small = coffeeShopInventory.get(itemName + "|Small").getQuantity() > 0;
+        boolean medium = coffeeShopInventory.get(itemName + "|Medium").getQuantity() > 0;
+        boolean large = coffeeShopInventory.get(itemName + "|Large").getQuantity() > 0;
+        String userChoice = "";
+
+        while (isUserInMenu) {
+
+            System.out.println("====----- Size Selection Screen -----====");
+            System.out.println("<|T--> Select Your Type! <--T|>");
+            System.out.println(large ?
+                    "(1) -> Add Large [Price: " + (variablePrices[2] + defaultPrice)+ "]" : "Large not Available");
+            System.out.println(medium ?
+                    "(2) -> Add Medium [Price: " + (variablePrices[1] + defaultPrice)+ "]" : "Medium not Available");
+            System.out.println(small ?
+                    "(3) -> Add Small [Price: " + (variablePrices[0] + defaultPrice)+ "]" : "Small not Available");
+            System.out.print("Type here: ");
+
+            switch (sc.nextLine().trim()) {
+                case "1" -> {
+                    if (large) {
+                        userChoice = "Large";
+                        System.out.println(itemName + "|Large");
+                        int quantity = coffeeShopInventory.get(itemName + "|Large").getQuantity();
+                        System.out.println(quantity);
+                        coffeeShopInventory.get(itemName + "|Large").setQuantity(quantity - 1);
+                        System.out.println(coffeeShopInventory.get(itemName + "|Large").getQuantity());
+                    }
+                    else {
+                        System.out.println("Invalid user Input!");
+                    }
+                }
+                case "2" -> {
+                    if (medium) {
+                        userChoice = "Medium";
+                        int quantity = coffeeShopInventory.get(itemName + "|Medium").getQuantity();
+                        coffeeShopInventory.get(itemName + "|Medium").setQuantity(quantity - 1);
+                    }
+                    else {
+                        System.out.println("Invalid user Input!");
+                    }
+                }
+                case "3" -> {
+                    if (small) {
+                        userChoice = "Small";
+                        int quantity = coffeeShopInventory.get(itemName + "|Small").getQuantity();
+                        coffeeShopInventory.get(itemName + "|Small").setQuantity(quantity - 1);
+                    }
+                    else {
+                        System.out.println("Invalid user Input!");
+                    }
+                }
+                default -> System.out.println("Invalid user input!");
+            }
+            if (!userChoice.equalsIgnoreCase("")) {
+                isUserInMenu = false;
+            }
+        }
+        return userChoice;
     }
 }

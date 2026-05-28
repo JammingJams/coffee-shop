@@ -9,6 +9,7 @@ import com.pluralsight.Model.OtherItems.Desserts;
 import com.pluralsight.Model.OtherItems.Snacks;
 import com.pluralsight.Model.Product;
 import com.pluralsight.Model.ShoppingCart;
+import com.pluralsight.Model.SpecialityItems.SpecialCoffee;
 
 import java.io.*;
 import java.util.HashMap;
@@ -92,6 +93,12 @@ public class InventoryLogger {
                         key = String.format("%s|%s|%s", type, name, size);
                         Desserts product = new Desserts(type, price, size, amount);
                         product.setDessertsName(name);
+                        coffeeShopInventory.put(key, product);
+                    }
+                    case "specialcoffee" -> {
+                        key = String.format("%s|%s|%s", type, name, size);
+                        SpecialCoffee product = new SpecialCoffee(type, price, size, amount);
+                        product.setCoffeeTypeName(name);
                         coffeeShopInventory.put(key, product);
                     }
                     default -> {

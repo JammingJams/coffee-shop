@@ -63,13 +63,13 @@ public class BreakfastSandwiches extends Product implements AddRemoveExtraMeats 
         }
 
         if (m == MeatTypes.SAUSAGE)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() - m.getPrice() - m.getBreakfastMeatPrice()[0]);
         else if (m == MeatTypes.EGG)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() - m.getPrice() - m.getBreakfastMeatPrice()[0]);
         else if (m == MeatTypes.CHEESE)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() - m.getPrice() - m.getBreakfastMeatPrice()[0]);
         else if (m == MeatTypes.BACON)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[0]);
+            setPrice(getPrice() - m.getPrice() - m.getBreakfastMeatPrice()[0]);
     }
 
     //This sets the price for and name for the coffee

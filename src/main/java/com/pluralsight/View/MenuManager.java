@@ -13,11 +13,15 @@ import com.pluralsight.Model.Product;
 import com.pluralsight.Model.ShoppingCart;
 import com.pluralsight.Model.SpecialityItems.SpecialCoffee;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-public class MainMenu {
+public class MenuManager {
     public static Scanner sc = new Scanner(System.in);
     public static ShoppingCart shoppingCart = new ShoppingCart();
+    public static HashMap<String, Product> coffeeShopInventory = InventoryLogger.getInventory();
 
     public static void runApp() {
         boolean isUserInMenu = true;
@@ -210,7 +214,11 @@ public class MainMenu {
                     }
                     default -> System.out.println("Coffee type does not exist");
                 }
-                size = sizeSelectionProcess(largeMediumSmallPrice, coffee.getPrice());
+                String parsedItemName = coffee.getCoffeeTypeName().replaceAll("\\s+","")
+                        .replaceAll(",","").replaceAll("&","");
+                String itemKey = "Coffee|" + parsedItemName;
+
+                size = sizeSelectionProcess(largeMediumSmallPrice, coffee.getPrice(), itemKey);
                 coffee.setServingSize(size);
                 coffee.setPrice(coffee.getPrice() + coffee.getPriceForSize(size, largeMediumSmallPrice));
 
@@ -282,7 +290,11 @@ public class MainMenu {
                     }
                     default -> System.out.println("Coffee type does not exist");
                 }
-                size = sizeSelectionProcess(largeMediumSmallPrice, coffee.getPrice());
+                String parsedItemName = coffee.getCoffeeTypeName().replaceAll("\\s+","")
+                        .replaceAll(",","").replaceAll("&","");
+                String itemKey = "Coffee|" + parsedItemName;
+
+                size = sizeSelectionProcess(largeMediumSmallPrice, coffee.getPrice(), itemKey);
                 coffee.setServingSize(size);
                 coffee.setPrice(coffee.getPrice() + coffee.getPriceForSize(size, largeMediumSmallPrice));
 
@@ -342,8 +354,11 @@ public class MainMenu {
                     }
                     default -> System.out.println("Tea type does not exist");
                 }
+                String parsedItemName = coffee.getTeaTypeName().replaceAll("\\s+","")
+                        .replaceAll(",","").replaceAll("&","");
+                String itemKey = "Tea|" + parsedItemName;
 
-                size = sizeSelectionProcess(largeMediumSmallPrice, coffee.getPrice());
+                size = sizeSelectionProcess(largeMediumSmallPrice, coffee.getPrice(), itemKey);
                 coffee.setServingSize(size);
                 coffee.setPrice(coffee.getPrice() + coffee.getPriceForSize(size, largeMediumSmallPrice));
                 selectAddInProcess(coffee);
@@ -363,7 +378,7 @@ public class MainMenu {
         while (isUserInMenu) {
             boolean invalidInput = false;
 
-            System.out.println("====----- Tea Selection Screen -----====");
+            System.out.println("====----- Sandwich Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
             System.out.print("(1) -> Add Bacon, Egg, & Cheese Sandwich\n" +
                     "(2) -> Add Sausage, Egg, & Cheese Sandwich\n" +
@@ -407,8 +422,12 @@ public class MainMenu {
                     }
                     default -> System.out.println("Coffee type does not exist");
                 }
+                String parsedItemName = breakfastSandwiches.getSandwichName().replaceAll("\\s+","")
+                        .replaceAll(",","").replaceAll("&","");
+                String itemKey = "BreakfastSandwiches|" + parsedItemName;
 
-                size = sizeSelectionProcess(largeMediumSmallPrice, breakfastSandwiches.getPrice());
+                size = sizeSelectionProcess(largeMediumSmallPrice, breakfastSandwiches.getPrice(), itemKey);
+
                 breakfastSandwiches.setServingSize(size);
                 breakfastSandwiches.setPrice(breakfastSandwiches.getPrice() +
                         breakfastSandwiches.getPriceForSize(size, largeMediumSmallPrice));
@@ -475,7 +494,11 @@ public class MainMenu {
                     }
                     default -> System.out.println("BakedGoods type does not exist");
                 }
-                size = sizeSelectionProcess(largeMediumSmallPrice, bakedGoods.getPrice());
+                String parsedItemName = bakedGoods.getSandwichName().replaceAll("\\s+","")
+                        .replaceAll(",","").replaceAll("&","");
+                String itemKey = "BakedGoods|" + parsedItemName;
+
+                size = sizeSelectionProcess(largeMediumSmallPrice, bakedGoods.getPrice(), itemKey);
                 bakedGoods.setServingSize(size);
                 bakedGoods.setPrice(bakedGoods.getPrice() + bakedGoods.getPriceForSize(size, largeMediumSmallPrice));
 
@@ -540,7 +563,13 @@ public class MainMenu {
                     }
                     default -> System.out.println("BakedGoods type does not exist");
                 }
-                size = sizeSelectionProcess(largeMediumSmallPrice, snacks.getPrice());
+                String parsedItemName = snacks.getSnacksName().replaceAll("\\s+","")
+                        .replaceAll(",","").replaceAll("&","");
+                String itemKey = "Snacks|" + parsedItemName;
+                //These are the process that run
+                size = sizeSelectionProcess(largeMediumSmallPrice, snacks.getPrice(), itemKey);
+
+                //This sets the price
                 snacks.setServingSize(size);
                 snacks.setPrice(snacks.getPrice() + snacks.getPriceForSize(size, largeMediumSmallPrice));
 
@@ -604,7 +633,11 @@ public class MainMenu {
                     }
                     default -> System.out.println("BakedGoods type does not exist");
                 }
-                size = sizeSelectionProcess(largeMediumSmallPrice, desserts.getPrice());
+                String parsedItemName = desserts.getDessertsName().replaceAll("\\s+","")
+                        .replaceAll(",","").replaceAll("&","");
+                String itemKey = "Desserts|" + parsedItemName;
+
+                size = sizeSelectionProcess(largeMediumSmallPrice, desserts.getPrice(), itemKey);
                 desserts.setServingSize(size);
                 desserts.setPrice(desserts.getPrice() + desserts.getPriceForSize(size, largeMediumSmallPrice));
 
@@ -624,7 +657,7 @@ public class MainMenu {
         double totalAmount = shoppingCart.getCart().stream().mapToDouble(p -> p.getPrice()).sum();
 
         while (isUserInLoop) {
-            System.out.println("====----- Desserts Selection Screen -----====");
+            System.out.println("====----- Checkout Screen -----====");
             System.out.println("Total Amount Is: $" + totalAmount);
             System.out.print("Do you want to checkout (Y/N)\nType Here:");
             switch (sc.nextLine().trim().toLowerCase()) {
@@ -632,6 +665,7 @@ public class MainMenu {
                 case "y" -> {
                     InventoryLogger.receiptWriter(shoppingCart);
                     shoppingCart.getCart().clear();
+                    InventoryLogger.inventoryWriter(coffeeShopInventory);
                     isUserInLoop = false;
                 }
                 default -> System.out.println("Invalid User input");
@@ -641,26 +675,64 @@ public class MainMenu {
 
     public static void cancelOrderProcess() {
         shoppingCart.getCart().clear();
+        //Add a writer here
         System.out.println("Inventory CLEARED");
     }
 
-    public static String sizeSelectionProcess(double[] variablePrices, double defaultPrice) {
+    public static String sizeSelectionProcess(double[] variablePrices, double defaultPrice, String itemName) {
+        ArrayList<Boolean> areItemsAvailable = checkItemSizeAvailability(itemName);
         boolean isUserInMenu = true;
+        boolean small = coffeeShopInventory.get(itemName + "|Small").getQuantity() > 0;
+        boolean medium = coffeeShopInventory.get(itemName + "|Medium").getQuantity() > 0;
+        boolean large = coffeeShopInventory.get(itemName + "|Large").getQuantity() > 0;
         String userChoice = "";
 
         while (isUserInMenu) {
 
             System.out.println("====----- Size Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
-            System.out.print("(1) -> Add Large [Price: " + (variablePrices[2] + defaultPrice)+ "]\n" +
-                    "(2) -> Add Medium [Price: " + (variablePrices[1] + defaultPrice) + "]\n" +
-                    "(3) -> Add Small [Price: " + (variablePrices[0] + defaultPrice) + "]\n" +
-                    "Type Here: ");
+            System.out.println(large ?
+                    "(1) -> Add Large [Price: " + (variablePrices[2] + defaultPrice)+ "]" : "Large not Available");
+            System.out.println(medium ?
+                    "(2) -> Add Medium [Price: " + (variablePrices[1] + defaultPrice)+ "]" : "Medium not Available");
+            System.out.println(small ?
+                    "(3) -> Add Small [Price: " + (variablePrices[0] + defaultPrice)+ "]" : "Small not Available");
+            System.out.print("Type here: ");
 
             switch (sc.nextLine().trim()) {
-                case "1" -> userChoice = "Large";
-                case "2" -> userChoice = "Medium";
-                case "3" -> userChoice = "Small";
+                case "1" -> {
+                    if (large) {
+                        userChoice = "Large";
+                        System.out.println(itemName + "|Large");
+                        int quantity = coffeeShopInventory.get(itemName + "|Large").getQuantity();
+                        System.out.println(quantity);
+                        coffeeShopInventory.get(itemName + "|Large").setQuantity(quantity - 1);
+                        System.out.println(coffeeShopInventory.get(itemName + "|Large").getQuantity());
+                    }
+                    else {
+                        System.out.println("Invalid user Input!");
+                    }
+                }
+                case "2" -> {
+                    if (medium) {
+                        userChoice = "Medium";
+                        int quantity = coffeeShopInventory.get(itemName + "|Medium").getQuantity();
+                        coffeeShopInventory.get(itemName + "|Medium").setQuantity(quantity - 1);
+                    }
+                    else {
+                        System.out.println("Invalid user Input!");
+                    }
+                }
+                case "3" -> {
+                    if (small) {
+                        userChoice = "Small";
+                        int quantity = coffeeShopInventory.get(itemName + "|Small").getQuantity();
+                        coffeeShopInventory.get(itemName + "|Small").setQuantity(quantity - 1);
+                    }
+                    else {
+                        System.out.println("Invalid user Input!");
+                    }
+                }
                 default -> System.out.println("Invalid user input!");
             }
             if (!userChoice.equalsIgnoreCase("")) {
@@ -726,7 +798,7 @@ public class MainMenu {
                     "(3) -> %s Egg [Price: " + (test.getPriceForSize(breakfastMeals.getServingSize(),
                     MeatTypes.EGG.getBreakfastMeatPrice()) + MeatTypes.EGG.getPrice()) + "]\n" +
                     "(4) -> %s Bacon [Price: " + (test.getPriceForSize(breakfastMeals.getServingSize(),
-                    MeatTypes.BACON.getBreakfastMeatPrice()) +  MeatTypes.SAUSAGE.getPrice()) + "]\n" +
+                    MeatTypes.BACON.getBreakfastMeatPrice()) +  MeatTypes.BACON.getPrice()) + "]\n" +
                     "(5) -> Switch to %s Extra Meats\n" +
                     "(6) -> Exit Extra Meats Menu\n" +
                     "Type Here: ",switcher,switcher,switcher,switcher,inverseSwitcher);
@@ -1143,5 +1215,37 @@ public class MainMenu {
             }
         }
     }
+
+    //We need to sort out the data to determine if an item is out of stock!
+    public static boolean checkItemAvailability(String itemName) {
+        for (Map.Entry<String, Product> entry : coffeeShopInventory.entrySet()) {
+            String key = entry.getKey();
+            Product product = entry.getValue();
+                if(key.contains(itemName)) {
+                    if (product.getQuantity() > 0) {
+                        return true;
+                    }
+            }
+        }
+        return false;
+    }
+
+    public static ArrayList<Boolean> checkItemSizeAvailability(String itemName) {
+        ArrayList<Boolean> test = new ArrayList<>();
+        for (Map.Entry<String, Product> entry : coffeeShopInventory.entrySet()) {
+            String key = entry.getKey();
+            Product product = entry.getValue();
+            if(key.contains(itemName)) {
+                if (product.getQuantity() > 0) {
+                    test.add(true);
+                }
+                else {
+                    test.add(false);
+                }
+            }
+        }
+        return test;
+    }
+
 
 }

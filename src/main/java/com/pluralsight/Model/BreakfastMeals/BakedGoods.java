@@ -63,20 +63,20 @@ public class BakedGoods extends Product implements AddRemoveExtraMeats {
         }
 
         if (m == MeatTypes.SAUSAGE)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
+            setPrice(getPrice() - m.getPrice() - m.getBreakfastMeatPrice()[1]);
         else if (m == MeatTypes.EGG)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
+            setPrice(getPrice() - m.getPrice() - m.getBreakfastMeatPrice()[1]);
         else if (m == MeatTypes.CHEESE)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
+            setPrice(getPrice() - m.getPrice() - m.getBreakfastMeatPrice()[1]);
         else if (m == MeatTypes.BACON)
-            setPrice(getPrice() + m.getPrice() + m.getBreakfastMeatPrice()[1]);
+            setPrice(getPrice() - m.getPrice() - m.getBreakfastMeatPrice()[1]);
     }
 
     //This sets the price for and name for the coffee
     // double[] smallMediumLargePrice
     public void setBakedGoods(BakedGoodsType b) {
         if (b == BakedGoodsType.ENGLISHMUFFINS) {
-            setSandwichName("English Muffins");
+            setSandwichName("English Muffin");
             setPrice(b.getPrice() + getPriceForSize(getServingSize(), b.getSmallMediumLargePrice()));
         }
         else if (b == BakedGoodsType.BAGELS) {

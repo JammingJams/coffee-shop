@@ -41,7 +41,7 @@ public abstract class Product {
     }
 
     public void setQuantity(int quantity) {
-        quantity = quantity;
+        this.quantity = quantity;
     }
 
 }

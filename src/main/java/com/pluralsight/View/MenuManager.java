@@ -57,7 +57,7 @@ public class MenuManager {
 
         while (isUserInMenu) {
             boolean invalidInput = false;
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Coffee Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
 
@@ -78,12 +78,13 @@ public class MenuManager {
             if (userInput.equalsIgnoreCase("6")) {return null;}
 
             if (userChoice == null) {
-                System.out.println("Invalid user input");
+                Display.waitAndContinue("Invalid user input");
                 invalidInput = true;
             }
 
             else if (!checkItemAvailability(userChoice)) {
-                System.out.println(userChoice + " is unavailable");
+                String error = (userChoice + " is unavailable");
+                Display.waitAndContinue(error);
                 invalidInput = true;
             }
 
@@ -91,7 +92,7 @@ public class MenuManager {
                 Coffee.CoffeeType type = coffeeTypeList.get(userChoice.toLowerCase());
 
                 if (type == null) {
-                    System.out.println("Coffee Type doesn't exist");
+                    Display.waitAndContinue("Coffee Type doesn't exist");
                     return null;
                 }
 
@@ -125,7 +126,7 @@ public class MenuManager {
 
         while (isUserInMenu) {
             boolean invalidInput = false;
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Tea Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
             for (Map.Entry<String, String> entry : sortedTeaOptions.entrySet()) {
@@ -145,12 +146,13 @@ public class MenuManager {
             if (userInput.equalsIgnoreCase("6")) {return null;}
 
             if (userChoice == null) {
-                System.out.println("Invalid user input");
+                Display.waitAndContinue("Invalid user input");
                 invalidInput = true;
             }
 
             else if (!checkItemAvailability(userChoice)) {
-                System.out.println(userChoice + " is unavailable");
+                String error = (userChoice + " is unavailable");
+                Display.waitAndContinue(error);
                 invalidInput = true;
             }
 
@@ -160,7 +162,7 @@ public class MenuManager {
                 Tea.TeaType type = teaTypeList.get(userChoice.toLowerCase());
 
                 if (type == null) {
-                    System.out.println("Coffee Type doesn't exist");
+                    Display.waitAndContinue("Tea Type doesn't exist");
                     return null;
                 }
 
@@ -191,7 +193,7 @@ public class MenuManager {
 
         while (isUserInMenu) {
             boolean invalidInput = false;
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Sandwich Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
             for (Map.Entry<String, String> entry : breakfastSandwichOptions.entrySet()) {
@@ -211,12 +213,13 @@ public class MenuManager {
             if (userInput.equalsIgnoreCase("6")) {return null;}
 
             if (userChoice == null) {
-                System.out.println("Invalid user input");
+                Display.waitAndContinue("Invalid user input");
                 invalidInput = true;
             }
 
             else if (!checkItemAvailability(userChoice)) {
-                System.out.println(userChoice + " is unavailable");
+                String error = (userChoice + " is unavailable");
+                Display.waitAndContinue(error);
                 invalidInput = true;
             }
 
@@ -227,7 +230,7 @@ public class MenuManager {
                 BreakfastSandwiches.SandwichTypes type = sandwichTypeList.get(userChoice.toLowerCase());
 
                 if (type == null) {
-                    System.out.println("Coffee Type doesn't exist");
+                    Display.waitAndContinue("BreakfastSandwich Type doesn't exist");
                     return null;
                 }
 
@@ -262,7 +265,7 @@ public class MenuManager {
 
         while (isUserInMenu) {
             boolean invalidInput = false;
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Baked Goods Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
             for (Map.Entry<String, String> entry : bakedGoodOptions.entrySet()) {
@@ -282,12 +285,13 @@ public class MenuManager {
             if (userInput.equalsIgnoreCase("6")) {return null;}
 
             if (userChoice == null) {
-                System.out.println("Invalid user input");
+                Display.waitAndContinue("Invalid user input");
                 invalidInput = true;
             }
 
             else if (!checkItemAvailability(userChoice)) {
-                System.out.println(userChoice + " is unavailable");
+                String error = (userChoice + " is unavailable");
+                Display.waitAndContinue(error);
                 invalidInput = true;
             }
 
@@ -298,7 +302,7 @@ public class MenuManager {
                 BakedGoods.BakedGoodsType type = bakedGoodsType.get(userChoice.toLowerCase());
 
                 if (type == null) {
-                    System.out.println("Coffee Type doesn't exist");
+                    Display.waitAndContinue("BakedGoods Type doesn't exist");
                     return null;
                 }
 
@@ -316,7 +320,6 @@ public class MenuManager {
                 addExtraMeatProcess(bakedGoods);
 
                 return bakedGoods;
-                //isUserInMenu = false;
             }
 
         }
@@ -331,7 +334,7 @@ public class MenuManager {
 
         while (isUserInMenu) {
             boolean invalidInput = false;
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Snacks Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
             for (Map.Entry<String, String> entry : snackOption.entrySet()) {
@@ -351,12 +354,13 @@ public class MenuManager {
             if (userInput.equalsIgnoreCase("6")) {return null;}
 
             if (userChoice == null) {
-                System.out.println("Invalid user input");
+                Display.waitAndContinue("Invalid user input");
                 invalidInput = true;
             }
 
             else if (!checkItemAvailability(userChoice)) {
-                System.out.println(userChoice + " is unavailable");
+                String error = (userChoice + " is unavailable");
+                Display.waitAndContinue(error);
                 invalidInput = true;
             }
 
@@ -367,7 +371,7 @@ public class MenuManager {
                 Snacks.SnackType type = snackTypeList.get(userChoice.toLowerCase());
 
                 if (type == null) {
-                    System.out.println("Coffee Type doesn't exist");
+                    Display.waitAndContinue("Snack Type doesn't exist");
                     return null;
                 }
 
@@ -402,7 +406,7 @@ public class MenuManager {
 
         while (isUserInMenu) {
             boolean invalidInput = false;
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Desserts Selection Screen -----====");
             System.out.println("<|T--> Select Your Type! <--T|>");
             for (Map.Entry<String, String> entry : dessertOption.entrySet()) {
@@ -422,12 +426,13 @@ public class MenuManager {
             if (userInput.equalsIgnoreCase("6")) {return null;}
 
             if (userChoice == null) {
-                System.out.println("Invalid user input");
+                Display.waitAndContinue("Invalid user input");
                 invalidInput = true;
             }
 
             else if (!checkItemAvailability(userChoice)) {
-                System.out.println(userChoice + " is unavailable");
+                String error = (userChoice + " is unavailable");
+                Display.waitAndContinue(error);
                 invalidInput = true;
             }
 
@@ -438,7 +443,7 @@ public class MenuManager {
                 Desserts.DessertType type = dessertTypeList.get(userChoice.toLowerCase());
 
                 if (type == null) {
-                    System.out.println("Coffee Type doesn't exist");
+                    Display.waitAndContinue("Dessert Type doesn't exist");
                     return null;
                 }
 
@@ -465,7 +470,7 @@ public class MenuManager {
         String switcher = "Add", inverseSwitcher = "Remove";
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- AddIn Selection Screen -----====");
             System.out.printf("(1) -> %s Sweeteners\n" +
                     "(2) -> %s Creamers\n" +
@@ -493,10 +498,12 @@ public class MenuManager {
                     }
                 }
                 case "7" -> isUserInMenu = false;
-                default -> System.out.println("Invalid user input!");
+                default -> Display.waitAndContinue("Invalid user input!");
             }
             if (isUserInMenu == true) {
+                System.out.println("\n\n\n\n\n\n\n\n\n");
                 System.out.println(coffee);
+                Display.waitAndContinue("Pause|Current AddIn");
             }
         }
     }
@@ -507,7 +514,7 @@ public class MenuManager {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Extra Meats Selection Screen -----====");
             System.out.printf("(1) -> %s Sausage [Price: " + (test.getPriceForSize(breakfastMeals.getServingSize(),
                     MeatTypes.SAUSAGE.getBreakfastMeatPrice()) + MeatTypes.SAUSAGE.getPrice()) + "]\n" +
@@ -545,7 +552,7 @@ public class MenuManager {
                         case "3" -> ((BreakfastSandwiches) breakfastMeals).add(MeatTypes.EGG);
                         case "4" -> ((BreakfastSandwiches) breakfastMeals).add(MeatTypes.BACON);
                         case "6" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
+                        default -> Display.waitAndContinue("Invalid user input!");
                     }
                 }
                 else {
@@ -555,7 +562,7 @@ public class MenuManager {
                         case "3" -> ((BreakfastSandwiches) breakfastMeals).remove(MeatTypes.EGG);
                         case "4" -> ((BreakfastSandwiches) breakfastMeals).remove(MeatTypes.BACON);
                         case "6" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
+                        default -> Display.waitAndContinue("Invalid user input!");
                     }
                 }
             }
@@ -569,7 +576,7 @@ public class MenuManager {
                         case "3" -> ((BakedGoods) breakfastMeals).add(MeatTypes.EGG);
                         case "4" -> ((BakedGoods) breakfastMeals).add(MeatTypes.BACON);
                         case "6" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
+                        default -> Display.waitAndContinue("Invalid user input!");
                     }
                 }
                 else {
@@ -579,9 +586,14 @@ public class MenuManager {
                         case "3" -> ((BakedGoods) breakfastMeals).remove(MeatTypes.EGG);
                         case "4" -> ((BakedGoods) breakfastMeals).remove(MeatTypes.BACON);
                         case "6" -> isUserInMenu = false;
-                        default -> System.out.println("Invalid user input!");
+                        default -> Display.waitAndContinue("Invalid user input!");
                     }
                 }
+            }
+            if (isUserInMenu) {
+                System.out.println("\n\n\n\n\n\n\n\n\n");
+                System.out.println(breakfastMeals);
+                Display.waitAndContinue("Pause|Current Extra Meats");
             }
         }
     }
@@ -592,7 +604,7 @@ public class MenuManager {
         String input = "";
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Sweetener Selection Screen -----====");
             System.out.printf("(1) -> %s Sugar [Price: " + test.getPriceForSize(coffee.getServingSize(),
                     AddIn.Sweeteners.SUGAR.getLargeMediumSmallPrice()) + "]\n" +
@@ -613,14 +625,14 @@ public class MenuManager {
                 case "4" -> input = "4";
                 case "5" -> isUserInMenu = false;
             }
-            if (!isUserInMenu) {continue;}
 
             AddIn.Sweeteners selected = sweetenerMap.get(input);
 
             if (selected == null) {
-                System.out.println("Invalid user input!");
+                Display.waitAndContinue("Invalid user input!");
                 continue;
             }
+            if (!isUserInMenu) {return;}
 
             applyAddOrRemoveAddIn(coffee, selected, switcher);
         }
@@ -632,7 +644,7 @@ public class MenuManager {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Creamers Selection Screen -----====");
             System.out.printf("(1) -> %s Milk [Price: " + test.getPriceForSize(coffee.getServingSize(),
                     AddIn.Creamers.MILK.getLargeMediumSmallPrice()) + "]\n" +
@@ -656,12 +668,12 @@ public class MenuManager {
                 case "5" -> input = "5";
                 case "6" -> isUserInMenu = false;
             }
-            if (!isUserInMenu) {continue;}
+            if (!isUserInMenu) {return;}
 
             AddIn.Creamers selected = creamerMap.get(input);
 
             if (selected == null) {
-                System.out.println("Invalid user input!");
+                Display.waitAndContinue("Invalid user input!");
                 continue;
             }
 
@@ -675,7 +687,7 @@ public class MenuManager {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Spices Selection Screen -----====");
             System.out.printf("(1) -> %s Cinnamon [Price: " + test.getPriceForSize(coffee.getServingSize(),
                     AddIn.Spices.CINNAMON.getLargeMediumSmallPrice()) + "]\n" +
@@ -696,12 +708,12 @@ public class MenuManager {
                 case "4" -> input = "4";
                 case "5" -> isUserInMenu = false;
             }
-            if (!isUserInMenu) {continue;}
+            if (!isUserInMenu) {return;}
 
             AddIn.Spices selected = spiceMap.get(input);
 
             if (selected == null) {
-                System.out.println("Invalid user input!");
+                Display.waitAndContinue("Invalid user input!");
                 continue;
             }
 
@@ -715,7 +727,7 @@ public class MenuManager {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Flavorings Selection Screen -----====");
             System.out.printf("(1) -> %s Vanilla Extract [Price: " + test.getPriceForSize(coffee.getServingSize(),
                     AddIn.Flavorings.VANILLAEXTRACT.getLargeMediumSmallPrice()) + "]\n" +
@@ -733,12 +745,12 @@ public class MenuManager {
                 case "3" -> input = "3";
                 case "4" -> isUserInMenu = false;
             }
-            if (!isUserInMenu) {continue;}
+            if (!isUserInMenu) {return;}
 
             AddIn.Flavorings selected = flavoringMap.get(input);
 
             if (selected == null) {
-                System.out.println("Invalid user input!");
+                Display.waitAndContinue("Invalid user input!");
                 continue;
             }
 
@@ -752,7 +764,7 @@ public class MenuManager {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
-
+            System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Desert-Style Selection Screen -----====");
             System.out.printf("(1) -> %s Ice Cream [Price: " + test.getPriceForSize(coffee.getServingSize(),
                     AddIn.DessertStyle.ICECREAM.getLargeMediumSmallPrice()) + "]\n" +
@@ -773,12 +785,12 @@ public class MenuManager {
                 case "4" -> input = "4";
                 case "5" -> isUserInMenu = false;
             }
-            if (!isUserInMenu) {continue;}
+            if (!isUserInMenu) {return;}
 
             AddIn.DessertStyle selected = dessertStyleMap.get(input);
 
             if (selected == null) {
-                System.out.println("Invalid user input!");
+                Display.waitAndContinue("Invalid user input!");
                 continue;
             }
 

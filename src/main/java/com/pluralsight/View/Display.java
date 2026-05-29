@@ -225,15 +225,18 @@ public class Display {
     public static void checkOutProcess() {
         shoppingCart.getCart().removeIf(Objects::isNull);
         boolean isUserInLoop = true;
-        double totalAmount = shoppingCart.getCart().stream().mapToDouble(p -> p.getPrice()).sum();
-        if (totalAmount == 0) {
+        double sum = shoppingCart.getCart().stream().mapToDouble(p -> p.getPrice()).sum();
+        if (sum == 0) {
             waitAndContinue("Cart doesn't have any products...");
             return;
         }
+        double tax = sum * 0.08;
+        double totalAmount = sum + tax;
 
         while (isUserInLoop) {
             System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Checkout Screen -----====");
+            System.out.printf("Tax Amount Is: $%.2f\n", tax);
             System.out.println("Total Amount Is: $" + totalAmount);
             System.out.print("Do you want to checkout (Y/N)\nType Here:");
             switch (sc.nextLine().trim().toLowerCase()) {

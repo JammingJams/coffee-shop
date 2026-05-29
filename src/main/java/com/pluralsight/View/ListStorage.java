@@ -89,11 +89,6 @@ public class ListStorage {
                     "creamy's delight", SpecialCoffee.SpecialCoffeeType.CREAMYSDELIGHT,
                     "spice my ice", SpecialCoffee.SpecialCoffeeType.SPICEMYICE);
 
-//        case "birthday blitz" -> {
-//                    case "carameltdown" -> {
-//                    case "choco mucho" -> {
-//                    case "creamy's delight" -> {
-//                    case "spice my ice" -> {
         public static final Map<String, AddIn.Sweeteners> sweetenerMap = Map.of(
                 "1", AddIn.Sweeteners.SUGAR,
                 "2", AddIn.Sweeteners.HONEY,

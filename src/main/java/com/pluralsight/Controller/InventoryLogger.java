@@ -132,7 +132,6 @@ public class InventoryLogger {
             TreeMap<String, Product> sortedInv = new TreeMap<>(inventory);
 
             for (Map.Entry<String, Product> entry : sortedInv.entrySet()) {
-                System.out.println(entry.getValue());
                 String value = String.valueOf(entry.getValue());
                 bufferedWriter.write(value);
                 bufferedWriter.newLine();

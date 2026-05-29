@@ -13,9 +13,9 @@ BakedGoods|EnglishMuffin|1.00|Small|x1
 BakedGoods|Toast|1.50|Large|x1
 BakedGoods|Toast|1.25|Medium|x1
 BakedGoods|Toast|0.75|Small|x1
-BreakfastSandwiches|BaconEggCheese|8.00|Large|x1
+BreakfastSandwiches|BaconEggCheese|8.00|Large|x0
 BreakfastSandwiches|BaconEggCheese|7.00|Medium|x0
-BreakfastSandwiches|BaconEggCheese|4.50|Small|x1
+BreakfastSandwiches|BaconEggCheese|4.50|Small|x0
 BreakfastSandwiches|BreakfastGrilledCheese|9.50|Large|x1
 BreakfastSandwiches|BreakfastGrilledCheese|8.50|Medium|x1
 BreakfastSandwiches|BreakfastGrilledCheese|6.00|Small|x1
@@ -29,7 +29,7 @@ Coffee|Americano|11.00|Large|x1
 Coffee|Americano|9.50|Medium|x1
 Coffee|Americano|6.50|Small|x1
 Coffee|Cappuccino|11.00|Large|x0
-Coffee|Cappuccino|9.50|Medium|x1
+Coffee|Cappuccino|9.50|Medium|x0
 Coffee|Cappuccino|6.50|Small|x1
 Coffee|Espresso|11.00|Large|x1
 Coffee|Espresso|9.50|Medium|x1
@@ -49,7 +49,7 @@ Desserts|Cupcake|3.50|Small|x1
 Desserts|IceCream|8.25|Large|x1
 Desserts|IceCream|6.50|Medium|x1
 Desserts|IceCream|4.50|Small|x1
-Desserts|PumpkinPie|11.75|Large|x1
+Desserts|PumpkinPie|11.75|Large|x0
 Desserts|PumpkinPie|8.75|Medium|x1
 Desserts|PumpkinPie|7.00|Small|x1
 Snacks|Cheetos|2.50|Large|x1
@@ -66,7 +66,7 @@ Snacks|Peanuts|1.25|Medium|x1
 Snacks|Peanuts|0.50|Small|x1
 SpecialCoffee|BirthdayBlitz|16.50|Large|x0
 SpecialCoffee|BirthdayBlitz|15.00|Medium|x0
-SpecialCoffee|BirthdayBlitz|12.00|Small|x1
+SpecialCoffee|BirthdayBlitz|12.00|Small|x0
 SpecialCoffee|Carameltdown|13.00|Large|x1
 SpecialCoffee|Carameltdown|11.50|Medium|x1
 SpecialCoffee|Carameltdown|8.50|Small|x1

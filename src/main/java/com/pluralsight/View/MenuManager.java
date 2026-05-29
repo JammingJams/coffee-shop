@@ -624,6 +624,7 @@ public class MenuManager {
                 case "3" -> input = "3";
                 case "4" -> input = "4";
                 case "5" -> isUserInMenu = false;
+                default -> Display.waitAndContinue("Invalid user input!");
             }
 
             AddIn.Sweeteners selected = sweetenerMap.get(input);
@@ -667,6 +668,7 @@ public class MenuManager {
                 case "4" -> input = "4";
                 case "5" -> input = "5";
                 case "6" -> isUserInMenu = false;
+                default -> Display.waitAndContinue("Invalid user input!");
             }
             if (!isUserInMenu) {return;}
 
@@ -707,6 +709,7 @@ public class MenuManager {
                 case "3" -> input = "3";
                 case "4" -> input = "4";
                 case "5" -> isUserInMenu = false;
+                default -> Display.waitAndContinue("Invalid user input!");
             }
             if (!isUserInMenu) {return;}
 
@@ -744,6 +747,7 @@ public class MenuManager {
                 case "2" -> input = "2";
                 case "3" -> input = "3";
                 case "4" -> isUserInMenu = false;
+                default -> Display.waitAndContinue("Invalid user input!");
             }
             if (!isUserInMenu) {return;}
 
@@ -784,6 +788,7 @@ public class MenuManager {
                 case "3" -> input = "3";
                 case "4" -> input = "4";
                 case "5" -> isUserInMenu = false;
+                default -> Display.waitAndContinue("Invalid user input!");
             }
             if (!isUserInMenu) {return;}
 

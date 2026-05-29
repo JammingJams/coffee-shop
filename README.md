@@ -10,12 +10,14 @@ Generate receipts and update stock after checkout
 
 The project demonstrates object-oriented design, including:
 
+
 Inheritance
 Polymorphism
 Interfaces
 Enums
 File I/O
 Design patterns (Factory + Maps refactoring)
+
 
 
 🧱 Project Structure
@@ -91,6 +93,7 @@ com.pluralsight
 🚀 Features
 ✅ Order Management
 
+
 Start a new order
 Add items from multiple categories:
 
@@ -106,6 +109,7 @@ Specialty drinks
 
 ✅ Customization
 
+
 Add or remove:
 
 Sweeteners
@@ -120,6 +124,7 @@ Add extra meats to breakfast items
 
 ✅ Inventory System
 
+
 Loads inventory from CSV file
 Tracks item availability
 Updates stock when items are ordered
@@ -128,9 +133,11 @@ Prevents ordering unavailable items
 
 ✅ Checkout System
 
+
 Displays total cost
 Saves receipt to file
 Clears cart after purchase
+
 
 
 📂 Data Files
@@ -151,13 +158,16 @@ Total cost
 Timestamp
 
 
+
 🛠️ Technologies Used
+
 
 Java
 Object-Oriented Programming (OOP)
 File I/O (BufferedReader / Writer)
 Collections (Map, ArrayList)
 Enums & Interfaces
+
 
 
 🧠 Design Patterns Used
@@ -167,6 +177,7 @@ Used to simplify object creation of:
 Coffee
 Tea
 Food items
+
 
 
 ✔ Map-Based Lookup
@@ -183,11 +194,15 @@ Clone or download the project
 Open in your IDE (IntelliJ, Eclipse, etc.)
 Run:
 
+
 JavaApp.javaShow more lines
+
 
 
 👨‍💻 Author
 Noah Logan
+
+
 
 📜 License
 This project is for educational purposes.

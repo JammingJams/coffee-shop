@@ -41,13 +41,13 @@ public class ListStorage {
 
         //BakedGoods Maps
         public static final Map<String, String> bakedGoodsOptions = Map.of(
-                "1", "English Muffins",
+                "1", "English Muffin",
                 "2", "Croissant",
                 "3", "Bagel",
                 "4", "Toast");
 
         public static final Map<String, BakedGoods.BakedGoodsType> bakedGoodsType = Map.of(
-                "english muffins", BakedGoods.BakedGoodsType.ENGLISHMUFFINS,
+                "english muffin", BakedGoods.BakedGoodsType.ENGLISHMUFFINS,
                 "croissant", BakedGoods.BakedGoodsType.CROISSANTS,
                 "bagel", BakedGoods.BakedGoodsType.BAGELS,
                 "toast", BakedGoods.BakedGoodsType.TOAST);

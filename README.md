@@ -28,66 +28,66 @@ com.pluralsight
 
 ├── Controller
 
-│   └── InventoryLogger.java → Handles file I/O (inventory + receipts)
+│     └── InventoryLogger.java → Handles file I/O (inventory + receipts)
 
 │
 
 ├── View
 
-│   └── MainMenu.java        → User interaction
+│     └── MainMenu.java        → User interaction
 
-│   └── ListStorage.java     → Stores maplists
+│     └── ListStorage.java     → Stores maplists
 
-│   └── Display.java         → UI
+│     └── Display.java         → UI
 
 ├── Model
 
-│   ├── Product.java         → Base abstract class
+│     ├── Product.java         → Base abstract class
 
-│   ├── ShoppingCart.java    → Cart management
+│     ├── ShoppingCart.java    → Cart management
 
-│   │
+│     │
 
-│   ├── Drinks
+│     ├── Drinks
 
-│   │   ├── Coffee.java
+│     │   ├── Coffee.java
 
-│   │   └── Tea.java
+│     │   └── Tea.java
 
-│   │
+│     │
 
-│   ├── BreakfastMeals
+│     ├── BreakfastMeals
 
-│   │   ├── BreakfastSandwiches.java
+│     │   ├── BreakfastSandwiches.java
 
-│   │   ├── BakedGoods.java
+│     │   ├── BakedGoods.java
 
-│   │   └── MeatTypes.java
+│     │   └── MeatTypes.java
 
-│   │
+│     │
 
-│   ├── OtherItems
+│     ├── OtherItems
 
-│   │   ├── Snacks.java
+│     │   ├── Snacks.java
 
-│   │   └── Desserts.java
+│     │   └── Desserts.java
 
-│   │
+│     │
 
-│   └── SpecialityItems
+│     └── SpecialityItems
 
-│       └── SpecialCoffee.java
+│         └── SpecialCoffee.java
 
 │
 ├── Interface
 
-│   ├── AddIn.java
+│     ├── AddIn.java
 
-│   ├── AddRemoveExtras.java
+│     ├── AddRemoveExtras.java
 
-│   ├── AddRemoveExtraMeats.java
+│     ├── AddRemoveExtraMeats.java
 
-│   └── DateTimeLogger.java
+│     └── DateTimeLogger.java
 
 
 🚀 Features

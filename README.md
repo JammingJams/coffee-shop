@@ -144,6 +144,7 @@ Clears cart after purchase
 
 
 **📂 Data Files**
+
 Inventory File
 src/main/resources/CoffeeShopInventory.csv
 
@@ -174,6 +175,7 @@ Enums & Interfaces
 
 
 **🧠 Design Patterns Used**
+
 ✔ Factory Pattern
 Used to simplify object creation of:
 
@@ -191,7 +193,7 @@ Easier scalability
 Less error-prone
 
 
-⚙️ How to Run
+**⚙️ How to Run**
 
 Clone or download the project
 Open in your IDE (IntelliJ, Eclipse, etc.)

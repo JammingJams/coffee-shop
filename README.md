@@ -1,5 +1,7 @@
-☕ Coffee Shop Ordering System
-📌 Overview
+**☕ Coffee Shop Ordering System**
+
+**📌 Overview**
+
 This is a console-based Coffee Shop Ordering System built in Java. The application allows users to:
 
 Create and manage customer orders
@@ -20,7 +22,8 @@ Design patterns (Factory + Maps refactoring)
 
 
 
-🧱 Project Structure
+**🧱 Project Structure**
+
 com.pluralsight
 │
 
@@ -90,8 +93,8 @@ com.pluralsight
 │     └── DateTimeLogger.java
 
 
-🚀 Features
-✅ Order Management
+**🚀 Features**
+**✅ Order Management**
 
 
 Start a new order
@@ -107,7 +110,7 @@ Specialty drinks
 
 
 
-✅ Customization
+**✅ Customization**
 
 
 Add or remove:
@@ -122,7 +125,7 @@ Dessert-style toppings
 Add extra meats to breakfast items
 
 
-✅ Inventory System
+**✅ Inventory System**
 
 
 Loads inventory from CSV file
@@ -131,7 +134,7 @@ Updates stock when items are ordered
 Prevents ordering unavailable items
 
 
-✅ Checkout System
+**✅ Checkout System**
 
 
 Displays total cost
@@ -140,7 +143,7 @@ Clears cart after purchase
 
 
 
-📂 Data Files
+**📂 Data Files**
 Inventory File
 src/main/resources/CoffeeShopInventory.csv
 
@@ -159,7 +162,7 @@ Timestamp
 
 
 
-🛠️ Technologies Used
+**🛠️ Technologies Used**
 
 
 Java
@@ -170,7 +173,7 @@ Enums & Interfaces
 
 
 
-🧠 Design Patterns Used
+**🧠 Design Patterns Used**
 ✔ Factory Pattern
 Used to simplify object creation of:
 
@@ -199,10 +202,10 @@ JavaApp.javaShow more lines
 
 
 
-👨‍💻 Author
+**👨‍💻 Author**
 Noah Logan
 
 
 
-📜 License
+**📜 License**
 This project is for educational purposes.

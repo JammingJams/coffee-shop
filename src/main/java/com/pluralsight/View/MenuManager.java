@@ -601,9 +601,10 @@ public class MenuManager {
     public static void addSweetenerProcess(Product coffee, String switcher) {
         Coffee test = new Coffee("",1,"",1);
         boolean isUserInMenu = true;
-        String input = "";
+        String input;
 
         while (isUserInMenu) {
+            input = "";
             System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Sweetener Selection Screen -----====");
             System.out.printf("(1) -> %s Sugar [Price: " + test.getPriceForSize(coffee.getServingSize(),
@@ -624,8 +625,8 @@ public class MenuManager {
                 case "3" -> input = "3";
                 case "4" -> input = "4";
                 case "5" -> isUserInMenu = false;
-                default -> Display.waitAndContinue("Invalid user input!");
             }
+            if (!isUserInMenu) {return;}
 
             AddIn.Sweeteners selected = sweetenerMap.get(input);
 
@@ -633,7 +634,6 @@ public class MenuManager {
                 Display.waitAndContinue("Invalid user input!");
                 continue;
             }
-            if (!isUserInMenu) {return;}
 
             applyAddOrRemoveAddIn(coffee, selected, switcher);
         }
@@ -641,10 +641,11 @@ public class MenuManager {
 
     public static void addCreamersProcess(Product coffee, String switcher) {
         Coffee test = new Coffee("",1,"",1);
-        String input = "";
+        String input;
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
+            input = "";
             System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Creamers Selection Screen -----====");
             System.out.printf("(1) -> %s Milk [Price: " + test.getPriceForSize(coffee.getServingSize(),
@@ -668,7 +669,6 @@ public class MenuManager {
                 case "4" -> input = "4";
                 case "5" -> input = "5";
                 case "6" -> isUserInMenu = false;
-                default -> Display.waitAndContinue("Invalid user input!");
             }
             if (!isUserInMenu) {return;}
 
@@ -689,6 +689,7 @@ public class MenuManager {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
+            input = "";
             System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Spices Selection Screen -----====");
             System.out.printf("(1) -> %s Cinnamon [Price: " + test.getPriceForSize(coffee.getServingSize(),
@@ -709,7 +710,6 @@ public class MenuManager {
                 case "3" -> input = "3";
                 case "4" -> input = "4";
                 case "5" -> isUserInMenu = false;
-                default -> Display.waitAndContinue("Invalid user input!");
             }
             if (!isUserInMenu) {return;}
 
@@ -730,6 +730,7 @@ public class MenuManager {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
+            input = "";
             System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Flavorings Selection Screen -----====");
             System.out.printf("(1) -> %s Vanilla Extract [Price: " + test.getPriceForSize(coffee.getServingSize(),
@@ -747,7 +748,6 @@ public class MenuManager {
                 case "2" -> input = "2";
                 case "3" -> input = "3";
                 case "4" -> isUserInMenu = false;
-                default -> Display.waitAndContinue("Invalid user input!");
             }
             if (!isUserInMenu) {return;}
 
@@ -768,6 +768,7 @@ public class MenuManager {
         boolean isUserInMenu = true;
 
         while (isUserInMenu) {
+            input = "";
             System.out.println("\n\n\n\n\n\n\n\n\n");
             System.out.println("====----- Desert-Style Selection Screen -----====");
             System.out.printf("(1) -> %s Ice Cream [Price: " + test.getPriceForSize(coffee.getServingSize(),
@@ -788,7 +789,6 @@ public class MenuManager {
                 case "3" -> input = "3";
                 case "4" -> input = "4";
                 case "5" -> isUserInMenu = false;
-                default -> Display.waitAndContinue("Invalid user input!");
             }
             if (!isUserInMenu) {return;}
 

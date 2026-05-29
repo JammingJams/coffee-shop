@@ -31,7 +31,7 @@ public class Display {
             switch (sc.nextLine().trim()) {
                 case "1" -> newOrderProcess();
                 case "2" -> isUserInMenu = false;
-                default -> System.out.println("Invalid user input!");
+                default -> waitAndContinue("Invalid user input!");
             }
         }
         System.out.println("Have a good day");
@@ -63,7 +63,7 @@ public class Display {
                 case "6" -> checkOutProcess();
                 case "7" -> cancelOrderProcess();
                 case "8" -> isUserInMenu = false;
-                default -> System.out.println("Invalid user input!");
+                default -> waitAndContinue("Invalid user input!");
             }
         }
     }
@@ -90,7 +90,7 @@ public class Display {
                     isUserInMenu = false;
                 }
                 case "3" -> isUserInMenu = false;
-                default -> System.out.println("Invalid user input!");
+                default -> waitAndContinue("Invalid user input!");
             }
         }
     }
@@ -117,7 +117,7 @@ public class Display {
                     isUserInMenu = false;
                 }
                 case "3" -> isUserInMenu = false;
-                default -> System.out.println("Invalid user input!");
+                default -> waitAndContinue("Invalid user input!");
             }
         }
     }
@@ -137,7 +137,7 @@ public class Display {
                 case "1" -> shoppingCart.add(MenuManager.addSnacksProcess());
                 case "2" -> shoppingCart.add(MenuManager.addDessertsProcess());
                 case "3" -> isUserInMenu = false;
-                default -> System.out.println("Invalid user input!");
+                default -> waitAndContinue("Invalid user input!");
             }
         }
 
@@ -171,12 +171,13 @@ public class Display {
             if (userInput.equalsIgnoreCase("6")) {isUserInMenu = false;}
 
             if (userChoice == null) {
-                System.out.println("Invalid user input");
+                waitAndContinue("Invalid user input");
                 invalidInput = true;
             }
 
             else if (!checkItemAvailability(userChoice)) {
-                System.out.println(userChoice + " is unavailable");
+                String error = userChoice + " is unavailable";
+                waitAndContinue(error);
                 invalidInput = true;
             }
 
@@ -186,7 +187,7 @@ public class Display {
                 SpecialCoffee.SpecialCoffeeType type = specialCoffeeTypeList.get(userChoice.toLowerCase());
 
                 if (type == null) {
-                    System.out.println("Coffee Type doesn't exist");
+                    waitAndContinue("Coffee Type doesn't exist");
                     continue;
                 }
 
@@ -213,7 +214,12 @@ public class Display {
     }
     public static void viewCartProcess() {
         shoppingCart.getCart().removeIf(Objects::isNull);
+        if (shoppingCart.getCart().isEmpty()) {
+            waitAndContinue("Cart doesn't have anything");
+            return;
+        }
         shoppingCart.getCart().forEach(p -> System.out.println(p));
+        waitAndContinue("Pause|Your Cart");
     }
 
     public static void checkOutProcess() {
@@ -221,7 +227,7 @@ public class Display {
         boolean isUserInLoop = true;
         double totalAmount = shoppingCart.getCart().stream().mapToDouble(p -> p.getPrice()).sum();
         if (totalAmount == 0) {
-            System.out.println("Cart doesn't have any products...");
+            waitAndContinue("Cart doesn't have any products...");
             return;
         }
 
@@ -236,9 +242,10 @@ public class Display {
                     InventoryLogger.receiptWriter(shoppingCart);
                     shoppingCart.getCart().clear();
                     InventoryLogger.inventoryWriter(coffeeShopInventory);
+                    waitAndContinue("Pause|Successfully checked out");
                     isUserInLoop = false;
                 }
-                default -> System.out.println("Invalid User input");
+                default -> waitAndContinue("Invalid User input");
             }
         }
     }
@@ -247,7 +254,7 @@ public class Display {
         shoppingCart.getCart().removeIf(Objects::isNull);
         shoppingCart.getCart().clear();
         coffeeShopInventory = InventoryLogger.getInventory();
-        System.out.println("Inventory CLEARED");
+        waitAndContinue("Pause|Cart Emptied!");
     }
 
     public static String sizeSelectionProcess(double[] variablePrices, double defaultPrice, String itemName) {
@@ -277,7 +284,7 @@ public class Display {
                         coffeeShopInventory.get(itemName + "|Large").setQuantity(quantity - 1);
                     }
                     else {
-                        System.out.println("Invalid user Input!");
+                        waitAndContinue("Item not available!");
                     }
                 }
                 case "2" -> {
@@ -287,7 +294,7 @@ public class Display {
                         coffeeShopInventory.get(itemName + "|Medium").setQuantity(quantity - 1);
                     }
                     else {
-                        System.out.println("Invalid user Input!");
+                        waitAndContinue("Item not available!");
                     }
                 }
                 case "3" -> {
@@ -297,15 +304,44 @@ public class Display {
                         coffeeShopInventory.get(itemName + "|Small").setQuantity(quantity - 1);
                     }
                     else {
-                        System.out.println("Invalid user Input!");
+                        waitAndContinue("Item not available!");
                     }
                 }
-                default -> System.out.println("Invalid user input!");
+                default -> waitAndContinue("Invalid user input!");
             }
             if (!userChoice.equalsIgnoreCase("")) {
                 isUserInMenu = false;
             }
         }
         return userChoice;
+    }
+
+    public static void waitAndContinue(String errorMessage){
+        if (errorMessage.contains("Pause")) {
+            String message = errorMessage.substring(6);
+            System.out.println("-----****%%%% User Interaction %%%%****-----");
+            System.out.printf("--===!![%s]!!===--\n",message);
+            System.out.println("-----****%%%% __________ %%%%****-----");
+            try {
+                Thread.sleep(1000);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("##### [Press any key to continue] #####");
+            sc.nextLine();
+            return;
+        }
+        System.out.println("-----****%%%% User Error %%%%****-----");
+        System.out.printf("--===!![%s]!!===--\n",errorMessage);
+        System.out.println("-----****%%%% __________ %%%%****-----");
+        try {
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("##### [Press any key to continue] #####");
+        sc.nextLine();
     }
 }

@@ -788,6 +788,7 @@ public class MenuManager {
 
     //We need to sort out the data to determine if an item is out of stock!
     public static boolean checkItemAvailability(String itemName) {
+        coffeeShopInventory = Display.coffeeShopInventory;
         itemName = itemName.replaceAll("\\s+","")
                 .replaceAll(",","").replaceAll("&","");
 

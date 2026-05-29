@@ -21,38 +21,70 @@ Design patterns (Factory + Maps refactoring)
 🧱 Project Structure
 com.pluralsight
 │
+
 ├── App.java                  → Entry point
+
 ├── Controller
+
 │   └── InventoryLogger.java → Handles file I/O (inventory + receipts)
+
 │
+
 ├── View
+
 │   └── MainMenu.java        → User interaction
+
 │   └── ListStorage.java     → Stores maplists
+
 │   └── Display.java         → UI
+
 ├── Model
+
 │   ├── Product.java         → Base abstract class
+
 │   ├── ShoppingCart.java    → Cart management
+
 │   │
+
 │   ├── Drinks
+
 │   │   ├── Coffee.java
+
 │   │   └── Tea.java
+
 │   │
+
 │   ├── BreakfastMeals
+
 │   │   ├── BreakfastSandwiches.java
+
 │   │   ├── BakedGoods.java
+
 │   │   └── MeatTypes.java
+
 │   │
+
 │   ├── OtherItems
+
 │   │   ├── Snacks.java
+
 │   │   └── Desserts.java
+
 │   │
+
 │   └── SpecialityItems
+
 │       └── SpecialCoffee.java
+
 │
 ├── Interface
+
 │   ├── AddIn.java
+
 │   ├── AddRemoveExtras.java
+
 │   ├── AddRemoveExtraMeats.java
+
 │   └── DateTimeLogger.java
 
 
